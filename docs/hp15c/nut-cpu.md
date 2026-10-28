@@ -10,6 +10,8 @@ This page records the CPU state represented by Nonpareil's NUT implementation. I
 
 [Home]({{ '/index.html' | relative_url }}) · [Memory map]({{ '/hp15c/memory-map.html' | relative_url }})
 
+**[Hardware architecture overview]({{ '/hp15c/hardware-architecture.html' | relative_url }})** — how the NUT CPU connects functionally to the R2D2 memory/display devices, the keyboard and the LCD.
+
 ## Registers
 
 | Register / field | Representation in Nonpareil | Role |
