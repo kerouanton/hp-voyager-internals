@@ -40,6 +40,10 @@ See the [disassembler development and validation history]({{ '/microcode/disasse
 
 The initial examination used Nonpareil commit `c347bc1ab20170c253512042f7aac0d952f304ea` as the source reference for the standalone disassembler. Links above point to the moving `main` branch and may evolve; individual claims should eventually link to pinned revisions.
 
+## Historical NUT MCode background
+
+- **Ken Emery, [*HP-41 MCODE For Beginners*](https://literature.hpcalc.org/items/1605)** (Synthetix, 1985; 212 pages), catalogued for the HP-41C/CV/CX in the [HP Calculator Literature Archive](https://literature.hpcalc.org/items/1605). This is a historical learning reference for NUT machine-code concepts, **not** a source of HP-15C-specific register allocation, peripheral behavior, status-bit assignments, or original-ROM addresses. Where the book and pinned Nonpareil V1 differ, HP-15C claims must be established from the original HP-15C ROM and model.
+
 ## Community reports, lost pages, and original ROM provenance
 
 The [community research notes]({{ '/hp15c/community-findings.html' | relative_url }}) index selected first-hand posts from the [Museum of HP Calculators forum](https://www.hpmuseum.org/forum/) with author, date, scope and uncertainty. Particularly relevant threads cover the [R2D2/NUT hardware variants](https://www.hpmuseum.org/forum/thread-21739.html), [missing-RAM behavior during R↑/R↓](https://www.hpmuseum.org/forum/thread-21336.html), [NUT RAM-chip instruction `2B0`](https://www.hpmuseum.org/forum/thread-24718.html), [Nonpareil development history](https://www.hpmuseum.org/forum/thread-18940.html), [Nonpareil II's closed-source plans and testing](https://www.hpmuseum.org/forum/thread-21213.html), and [the 2026 personal-Web-server outage](https://www.hpmuseum.org/forum/thread-23279.html), and [expanded-memory HP-15C LU limitations and ROM-image provenance](https://www.hpmuseum.org/forum/thread-19406.html).

@@ -30,7 +30,7 @@ These reference pages were first researched and drafted using **ChatGPT Work** a
 
 ## RAM register allocation and access traces
 
-The [HP-15C RAM register use map]({{ '/hp15c/ram-register-map.html' | relative_url }}) lists all 80 ordinary RAM addresses, experimentally observed read/write instruction sites, the real-mode stack mapping, and initial R0–R9 storage addressing. **ChatGPT Work** produced the research and first draft using an instrumented Nonpareil-derived CPU harness. The raw trace logs and harness were not supplied for independent replay; this limitation is documented on that page.
+The [HP-15C RAM register use map]({{ '/hp15c/ram-register-map.html' | relative_url }}) lists all 80 ordinary RAM addresses, experimentally observed read/write instruction sites, the real-mode stack mapping, and initial R0–R9 storage addressing. **ChatGPT Work** produced the research and first draft using an instrumented Nonpareil-derived CPU harness. The original inventory's earlier raw trace logs and harness were not supplied for independent replay; this limitation is documented on that page. A **separate, later 19-scenario RAM 015 study** was delivered with its harness and raw traces and subsequently rerun, as documented in [RAM 015: dynamic allocator and effective addresses]({{ '/hp15c/ram015-allocation.html' | relative_url }}). Neither research harness is redistributed by this repository.
 
 ## Start with the disassembler
 
