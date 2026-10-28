@@ -261,6 +261,18 @@ The **display-on/off/blink state** is controlled by NUT operations such as `disp
 
 [Full LCD segment/bit table]({{ '/hp15c/memory-map.html' | relative_url }}#lcd-segment-map) · [Voyager LCD implementation](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/src/voyager_lcd.c).
 
+## Power, sleep and continuous memory
+
+The **“C”** in HP-15C refers to the calculator's *continuous memory*: user data and programs can be retained across ordinary OFF/ON use. It is important to distinguish **sleep**, **CPU reset**, **firmware initialization**, and **complete loss of retained state**.
+
+At the instruction level, NUT has a `powoff` operation (`060`). In the emulator, it places the CPU into sleep and arranges for execution to return to the startup/wake path; it does **not** automatically zero every R2D2 RAM register. Keyboard and LCD state participate in the emulator's wake handling.
+
+The firmware uses a value in **RAM register `007`**, low three nibbles `EAE`, as part of a retained-state validity check. On wake, the code may preserve the existing memory or enter an initialization sequence according to its control flow.
+
+This explains why the physical resources must be understood together: **the CPU can stop executing, the ROM remains available, and the RAM may still hold the user's state**. The exact analog supply circuitry and voltage thresholds are not established by the Nonpareil model; its sleep behavior is a functional emulation, not a measurement of battery drain or power rails.
+
+[Reset and startup analysis]({{ '/hp15c/rom-map.html' | relative_url }}#reset-startup-and-wake) · [Retention signature in RAM 007]({{ '/hp15c/ram-register-map.html' | relative_url }}#ram-007-retention-signature-and-other-fields)
+
 ## A keystroke, from hardware to result
 
 Consider the sequence **`7 ENTER 2 +`** in normal real-number mode. The following is an **architectural explanation**, not a cycle-accurate execution trace:
@@ -307,7 +319,7 @@ This reference is deliberately explicit about its evidence boundaries:
 - **ROM analysis:** explains code/data effects inferred from specific firmware words and tested execution states.
 - **Physical board:** the exact part markings, electrical buses, pin counts, board routing, power retention and LCD waveforms may differ by revision and require independent hardware documents or measurement.
 
-For additional historical perspective and variant descriptions, see [The Museum of HP Calculators' hardware records](https://finseth.com/hpdata/hp15c.php) and the [HP Voyager architecture discussion](https://marc.info/?l=classiccmp&m=124622156101308&w=2). These secondary accounts describe real hardware variants but are **not substitutes for a schematic of a particular board**.
+For additional historical perspective and variant descriptions, see [community HP-15C hardware notes](https://finseth.com/hpdata/hp15c.php) and the [HP Voyager architecture discussion](https://marc.info/?l=classiccmp&m=124622156101308&w=2). These secondary accounts describe real hardware variants but are **not substitutes for a schematic of a particular board**.
 
 ## Primary sources and attribution
 
