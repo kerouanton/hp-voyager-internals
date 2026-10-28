@@ -31,6 +31,8 @@ This is an **independent community documentation project**, not affiliated with 
 |---|---|
 | [HP-15C memory map](hp15c/memory-map.md) | Instruction ROM, data RAM, device registers, keyboard codes, and display mapping |
 | [NUT CPU architecture](hp15c/nut-cpu.md) | Registers, instruction format, addressing, and timing |
+| [Firmware and reverse engineering](firmware/index.md) | ROM analysis, startup, diagnostics, and research notes |
+| [Firmware tools](firmware/tools.md) | C disassembler, tests, and reproduction instructions |
 | [Sources and methodology](sources.md) | Primary resources, credit, provenance, and evidence labels |
 
 ## What we hope to document
