@@ -148,7 +148,7 @@ The generic Nonpareil disassembler labels 10-bit word **`2B0`** (octal **`1260`*
 
 In the pinned [Nonpareil NUT execution engine](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/src/proc_nut.c), the CPU handler for `0x2b0` is **commented out**, even though the [disassembler prints `clr regs`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/src/dis_nut.c). The pinned **original HP-15C ROM dump contains no word `2B0`**. Smith specifically did **not** claim to have tested its behavior on the HP-15C R2D2 chip types `1LE2` and `1LH1`.
 
-**Status for the original HP-15C:** peripheral/RAM-chip command in historical NUT system documentation; **R2D2 hardware effect unverified**. Do not treat this as the mechanism behind the firmware's proven ON + minus clearing loop, which issues explicit RAM writes.
+**Status for the original HP-15C:** peripheral/RAM-chip command in historical NUT system documentation; **R2D2 hardware effect unverified**. Do not treat this as the mechanism behind the microcode's proven ON + minus clearing loop, which issues explicit RAM writes.
 
 This illustrates an important architectural distinction: a *10-bit instruction word seen on the machine's instruction path* may have a function implemented by a connected device rather than by the NUT arithmetic/control core. The full cross-family NUT opcode vocabulary is broader than the subset of confirmed HP-15C hardware behaviors.
 
