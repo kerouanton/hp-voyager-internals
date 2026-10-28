@@ -123,6 +123,8 @@ The roll-down microcode reads the word immediately **before R02** as if it conta
 
 ### RAM 015: address-descriptor source
 
+**New reproducible evidence:** [RAM 015 dynamic allocation analysis]({{ '/hp15c/ram015-allocation.html' | relative_url }}) documents a locally rerun 19-scenario investigation, descriptor changes in complex and matrix states, and an experimentally checked relative-address formula. That page distinguishes verified address use from inferred field names.
+
 Initialization writes `C0D2D2D2D2D2D2` to 015 at [`035C–0365`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom#L863-L872). Crucially, later code actually consumes this register when forming RAM addresses:
 
 - [`2BB3–2BC0`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom#L9142-L9155) selects page 010, reads register 5, rotates C, clears C[2], adjusts the low address through a pointer-controlled loop, selects that address and reads it.

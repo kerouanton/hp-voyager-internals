@@ -245,7 +245,7 @@ The checksums above belong to **this pinned original HP-15C ROM**, not to an old
 
 **Observed (ROM):** addresses [`13F9–13FD`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom#L5116-L5120) are all `000` in the pinned original image. **Reported (Giorgio):** the corresponding words in HP-15C LE and CE ROMs are `08B 0E5 2D3 2C6 0F5`. This is a **ROM-variant fingerprint**, not a complete variant-identification procedure.
 
-A successful self-test checksum **does not prove a ROM image is identical** to the original: compensating edits can maintain a passing checksum. Similarly, a row of zero words is **not** automatically unused ROM available for arbitrary patches, and the five addresses above are **not established as HP's original checksum-adjustment locations**. For provenance and legal scope, see [Original and modified HP-15C ROM images]({{ '/firmware/rom-provenance.html' | relative_url }}#original-and-modified-hp-15c-rom-images).
+A successful self-test checksum **does not prove a ROM image is identical** to the original: compensating edits can maintain a passing checksum. Similarly, a row of zero words is **not** automatically unused ROM available for arbitrary patches, and the five addresses above are **not established as HP's original checksum-adjustment locations**. For provenance and legal scope, see [Original and modified HP-15C ROM images]({{ '/microcode/rom-provenance.html' | relative_url }}#original-and-modified-hp-15c-rom-images).
 
 ## Diagnostic key sequence table
 
@@ -305,6 +305,10 @@ The diagnostic also shifts/writes LCD patterns and has timeout/failure handling 
 **Reported (first-hand, external microcode analysis):** Eric Smith found that the original HP-15C `R↓` routine **always reads the hypothetical imaginary X word**, even if complex mode has not allocated it; `R↑` invokes this routine three times. In the initialized real-mode layout, R02 is at physical `0C0`, and the read targets missing address `0BF`. The original hardware returns zero for an unpopulated RAM read and ignores writes to missing RAM; the value is discarded in the real-only path. This was exposed by a strict Nonpareil II memory check. [Source: Eric Smith, 21 February 2024](https://www.hpmuseum.org/forum/thread-21336.html).
 
 **Scope:** this is a cited first-hand external analysis, **not an independently recovered ROM entry-point address or replayed instruction trace** in this project. Do not assign exact roll-routine addresses without tracing the pinned HP-15C ROM. See [RAM allocation context]({{ '/hp15c/ram-register-map.html' | relative_url }}#dynamic-allocation-before-r02) and [community findings]({{ '/hp15c/community-findings.html' | relative_url }}).
+
+## Recent research: allocation descriptor and ST
+
+The [RAM 015 research page]({{ '/hp15c/ram015-allocation.html' | relative_url }}) records reproducible execution evidence for the descriptor write at `2ABE`, relative reads through `2FC9` and relocation of R02. The [HP-15C NUT status-bit reference]({{ '/hp15c/nut-status-bits.html' | relative_url }}) distinguishes hardware instruction semantics from routine-local bit meanings, including the diagnostic uses of S4, S5, S10 and S11.
 
 ## Unresolved subsystems
 

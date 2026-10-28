@@ -67,3 +67,6 @@ The HP-15C model declares an **LC oscillator frequency of 215,000 Hz** in `15c.n
 - Real hardware differences from the emulator.
 
 [Back to index]({{ '/index.html' | relative_url }})
+
+
+For the 14 internal NUT CPU status bits (ST), their C↔ST transfers and their uses in the original HP-15C ROM, see [NUT CPU Status Bits]({{ '/hp15c/nut-status-bits.html' | relative_url }}).

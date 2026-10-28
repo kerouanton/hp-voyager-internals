@@ -1,5 +1,5 @@
 title: HP Voyager Internals
-description: NUT CPU, memory maps and firmware exploration of the original HP Voyager calculators
+description: NUT CPU, memory maps and microcode exploration of the original HP Voyager calculators
 theme: jekyll-theme-cayman
 markdown: kramdown
 url: https://kerouanton.github.io

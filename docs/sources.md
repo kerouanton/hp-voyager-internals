@@ -27,7 +27,7 @@ This is an independent documentation effort. It is not affiliated with or endors
 
 AI assistance is part of the provenance, not evidence of correctness: claims must still be checked against original sources and traces.
 
-See the [disassembler development and validation history]({{ '/firmware/disassembler-history.html' | relative_url }}).
+See the [disassembler development and validation history]({{ '/microcode/disassembler-history.html' | relative_url }}).
 
 ## Primary technical source: Nonpareil
 
@@ -44,9 +44,15 @@ The initial examination used Nonpareil commit `c347bc1ab20170c253512042f7aac0d95
 
 The [community research notes]({{ '/hp15c/community-findings.html' | relative_url }}) index selected first-hand posts from the [Museum of HP Calculators forum](https://www.hpmuseum.org/forum/) with author, date, scope and uncertainty. Particularly relevant threads cover the [R2D2/NUT hardware variants](https://www.hpmuseum.org/forum/thread-21739.html), [missing-RAM behavior during R↑/R↓](https://www.hpmuseum.org/forum/thread-21336.html), [NUT RAM-chip instruction `2B0`](https://www.hpmuseum.org/forum/thread-24718.html), [Nonpareil development history](https://www.hpmuseum.org/forum/thread-18940.html), [Nonpareil II's closed-source plans and testing](https://www.hpmuseum.org/forum/thread-21213.html), and [the 2026 personal-Web-server outage](https://www.hpmuseum.org/forum/thread-23279.html), and [expanded-memory HP-15C LU limitations and ROM-image provenance](https://www.hpmuseum.org/forum/thread-19406.html).
 
-The [microcode ROM provenance page]({{ '/firmware/rom-provenance.html' | relative_url }}) documents Eric Smith's account of physical Voyager ROM extraction during self-test and distinguishes the historical account from the source-controlled ROM image and its header. The historical 2004 paper was hosted on now-inaccessible `brouhaha.com` infrastructure. **We do not claim an archive or an active replacement download for it.** Do not cite a dead PDF or a missing Wayback capture as a verified working reference.
+The [microcode ROM provenance page]({{ '/microcode/rom-provenance.html' | relative_url }}) documents Eric Smith's account of physical Voyager ROM extraction during self-test and distinguishes the historical account from the source-controlled ROM image and its header. The historical 2004 paper was hosted on now-inaccessible `brouhaha.com` infrastructure. **We do not claim an archive or an active replacement download for it.** Do not cite a dead PDF or a missing Wayback capture as a verified working reference.
 
 For a source claim taken from the forum we add **Reported (first-hand)** rather than upgrading it automatically to a silicon measurement, independent trace, or ROM observation by this project. The rights and licenses of historic papers, photographs, ROMs and microcode patches are not assumed from their public availability.
+
+## New locally reproduced RAM-allocation research
+
+A separate, user-supplied **19-scenario instrumented Nonpareil V1 Work package** was locally rebuilt and rerun. Its original-ROM hash and selected outputs were verified; its source code and raw traces remain **outside this repository** pending a licensing review of the mixed Nonpareil-derived source. See [RAM 015 research]({{ '/hp15c/ram015-allocation.html' | relative_url }}) for the exact evidence and incompleteness. A reproducible local emulator experiment remains distinct from an electrical measurement of original hardware.
+
+The [HP-15C NUT status-bit analysis]({{ '/hp15c/nut-status-bits.html' | relative_url }}) uses the pinned NUT implementation and the [HP Museum February 2026 technical discussion](https://www.hpmuseum.org/forum/thread-24677.html), without transferring model-specific HP-10C/HP-16C assignments to the HP-15C.
 
 ## Interpretation labels
 

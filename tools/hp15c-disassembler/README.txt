@@ -11,7 +11,7 @@ verify.cjs             Optional Node.js integrity and command-line tests.
 COPYING                GPL version 3 text for the adapted C source.
 NONPAREIL-COPYING.txt   Original repository licensing notice, unmodified.
 
-The C file is the DISASSEMBLER, not a decompilation of the calculator firmware
+The C file is the DISASSEMBLER, not a decompilation of the calculator microcode
 into C and not a calculator emulator. It uses only the standard C library;
 GTK, GLib, SDL, SCons and Nonpareil itself are not required to build it.
 
@@ -50,7 +50,7 @@ It preserves every stored word exactly once, including operand words in the
 raw-word column. Embedded tables can decode as plausible instructions and can
 shift the apparent instruction boundaries. For example, a transfer outside
 supplied ROM may indicate data, an alternate boundary, or unresolved context;
-it does not by itself prove an actual firmware error.
+it does not by itself prove an actual microcode error.
 
 The every-address listing is intentionally overlapping: it shows the normal-
 state interpretation starting at each stored address, including addresses that
@@ -91,7 +91,7 @@ address-space-wrapping instructions are preserved as raw words.
 The C derivative is GPL-3.0-only; see COPYING. The ROM and its derived listings
 retain their separate upstream provenance. The ROM itself has no explicit
 per-file license header. NONPAREIL-COPYING.txt contains historical mixed-license
-information; do not assume that the C source's GPL notice licenses HP firmware.
+information; do not assume that the C source's GPL notice licenses HP microcode.
 
 VALIDATION
 Built and executed with GCC on Linux using C11 and -Wall -Wextra -Wpedantic
@@ -108,7 +108,7 @@ Result: PASS, 265216 decoder cases: all 65536 absolute branch destinations
 with all 4 carry/call modes; all relative branch encodings at address-space
 boundaries with both carry-knowledge inputs; all 1024 first-word encodings in
 normal and selected-peripheral state. These verify decoding, not the execution
-of the calculator firmware or a complete identification of code versus data.
+of the calculator microcode or a complete identification of code versus data.
 
 Optional Node.js verification (not a build/runtime dependency):
 

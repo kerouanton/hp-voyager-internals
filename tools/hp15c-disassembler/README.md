@@ -41,7 +41,7 @@ The standalone adaptation, regression tests, verification helper, and initial an
 
 The project's reference documentation and GitHub organization are maintained with assistance from **OpenAI ChatGPT in manual ("agentless") mode**, with the maintainer directing and reviewing the work.
 
-See the [development history](../../docs/firmware/disassembler-history.md).
+See the [development history](../../docs/microcode/disassembler-history.md).
 
 ## Attribution and licensing
 
@@ -49,4 +49,4 @@ The core NUT decoder is derived from Nonpareil by **Eric Smith**, retaining its 
 
 The upstream ROM and ROM-derived listings have **separate** copyright/provenance concerns: the GPL applicable to the C source **does not license HP microcode**.
 
-See the [microcode section](../../docs/firmware/index.md) and [project source policy](../../docs/sources.md).
+See the [microcode section](../../docs/microcode/index.md) and [project source policy](../../docs/sources.md).

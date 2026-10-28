@@ -243,7 +243,7 @@ The original model specifies **39 physical keys** and their hardware codes. Nonp
 | STO | `C8` |
 | RCL | `88` |
 
-Two important instructions are **`c=keys`** (`220`), which reads the latched hardware code, and **`goto keys`** (`230`), which changes the program counter using that code. The microcode also reads a **keycode-indexed dispatch table in ROM** via `CXISA`. This is a software/firmware lookup, not a keyboard table burned into a CPU register.
+Two important instructions are **`c=keys`** (`220`), which reads the latched hardware code, and **`goto keys`** (`230`), which changes the program counter using that code. The microcode also reads a **keycode-indexed dispatch table in ROM** via `CXISA`. This is a microcode-driven lookup, not a keyboard table burned into a CPU register.
 
 The physical `f` and `g` keys have their own hardware codes. Shifted functions do **not** require separate electrical codes for all the labels printed on the keyboard; the microcode tracks the shift state and interprets the next key accordingly.
 
@@ -326,7 +326,7 @@ Eric Smith's [May 2024 discussion of the 1LQ9 pinout](https://www.hpmuseum.org/f
 
 Smith also published **partial notes for the earlier `1LF5` CPU**: in his numbered 44-position package scheme, pins 1 and 2 carry clock phases, pin 37 is `SYNC`, and pin 44 is `ISA`. These notes **must not be applied to `1LQ9` or `1LH1` without independent measurement**. Smith had not verified the `1LH1` pinout against `1LE2`.
 
-The original Voyager ROMs were extracted by **monitoring bus signals during the physical calculator's ROM self-test**, rather than by treating the ROM as a removable EPROM. See [Microcode ROM provenance]({{ '/firmware/rom-provenance.html' | relative_url }}) for the evidence and limits, and [community notes]({{ '/hp15c/community-findings.html' | relative_url }}) for the detailed testimony.
+The original Voyager ROMs were extracted by **monitoring bus signals during the physical calculator's ROM self-test**, rather than by treating the ROM as a removable EPROM. See [Microcode ROM provenance]({{ '/microcode/rom-provenance.html' | relative_url }}) for the evidence and limits, and [community notes]({{ '/hp15c/community-findings.html' | relative_url }}) for the detailed testimony.
 
 ## Physical hardware versus Nonpareil
 

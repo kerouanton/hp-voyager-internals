@@ -14,7 +14,7 @@ Inspired by classic computer memory maps such as the [Commodore 64 Memory Map](h
 
 The documentation is prepared in collaboration with **OpenAI ChatGPT in manual ("agentless") mode**, under the direction and editorial review of the project maintainer. ChatGPT assists with source inspection, technical analysis, writing, and organization; the maintainer decides what to investigate and publish.
 
-The HP-15C standalone disassembler and tests were developed separately using **ChatGPT Work**, then compiled and validated under **Cygwin** by the maintainer. The underlying NUT decoder derives from Eric Smith's Nonpareil. See [credits and provenance]({{ '/sources.html' | relative_url }}) and the [disassembler development history]({{ '/firmware/disassembler-history.html' | relative_url }}).
+The HP-15C standalone disassembler and tests were developed separately using **ChatGPT Work**, then compiled and validated under **Cygwin** by the maintainer. The underlying NUT decoder derives from Eric Smith's Nonpareil. See [credits and provenance]({{ '/sources.html' | relative_url }}) and the [disassembler development history]({{ '/microcode/disassembler-history.html' | relative_url }}).
 
 ## A project built on Eric Smith's work
 
@@ -42,14 +42,16 @@ This is an **independent community documentation project**, not affiliated with 
 | [HP-15C hardware architecture]({{ '/hp15c/hardware-architecture.html' | relative_url }}) | What NUT and R2D2 do, how ROM/RAM/keyboard/LCD fit together, and how microcode uses the hardware |
 | [Address and topic index]({{ '/hp15c/reference-index.html' | relative_url }}) | Browse ROM and RAM ranges or jump directly to a microcode subject |
 | [Complete HP-15C memory map]({{ '/hp15c/memory-map.html' | relative_url }}) | Full instruction and data address spaces, peripheral registers, 110 LCD slots, all keycodes, and CPU state |
+| [RAM 015 — dynamic allocation]({{ '/hp15c/ram015-allocation.html' | relative_url }}) | Reproduced descriptor changes, relative addresses and matrix boundaries |
+| [NUT CPU status bits ST]({{ '/hp15c/nut-status-bits.html' | relative_url }}) | 14 CPU bits, transfer semantics and routine-local meanings |
 | [HP-15C RAM register uses]({{ '/hp15c/ram-register-map.html' | relative_url }}) | Every ordinary RAM register, observed accesses, RPN stack and R0–R9, indirect addressing, open questions |
 | [HP-15C ROM map]({{ '/hp15c/rom-map.html' | relative_url }}) | ROM coverage, entry points, dispatch tables, boot, RAM clear, and diagnostics |
 | [NUT instruction set]({{ '/hp15c/instruction-set.html' | relative_url }}) | 10-bit opcode encoding, arithmetic families, control flow, and register effects |
 | [NUT CPU architecture]({{ '/hp15c/nut-cpu.html' | relative_url }}) | Registers, instruction format, addressing, and timing |
-| [Microcode and reverse engineering]({{ '/firmware/index.html' | relative_url }}) | ROM analysis, startup, diagnostics, and research notes |
-| [Microcode tools]({{ '/firmware/tools.html' | relative_url }}) | C disassembler, tests, and reproduction instructions |
-| [Disassembler development history]({{ '/firmware/disassembler-history.html' | relative_url }}) | Work, tests, Cygwin validation, and limitations |
-| [Microcode ROM provenance]({{ '/firmware/rom-provenance.html' | relative_url }}) | How Eric Smith extracted the original Voyager ROMs and where our ROM image comes from |
+| [Microcode and reverse engineering]({{ '/microcode/index.html' | relative_url }}) | ROM analysis, startup, diagnostics, and research notes |
+| [Microcode tools]({{ '/microcode/tools.html' | relative_url }}) | C disassembler, tests, and reproduction instructions |
+| [Disassembler development history]({{ '/microcode/disassembler-history.html' | relative_url }}) | Work, tests, Cygwin validation, and limitations |
+| [Microcode ROM provenance]({{ '/microcode/rom-provenance.html' | relative_url }}) | How Eric Smith extracted the original Voyager ROMs and where our ROM image comes from |
 | [Community research findings]({{ '/hp15c/community-findings.html' | relative_url }}) | Forum discoveries about chip revisions, unmapped RAM, allocation, and Nonpareil development |
 | [Sources and methodology]({{ '/sources.html' | relative_url }}) | Primary resources, credit, provenance, and evidence labels |
 

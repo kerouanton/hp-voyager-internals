@@ -14,7 +14,12 @@ This is a **navigation index**, not a new set of hardware claims. Follow the lin
 
 ## Source-oriented research notes
 
-[Community findings]({{ '/hp15c/community-findings.html' | relative_url }}) indexes HP Museum forum discoveries by hardware revision, missing RAM, dynamic allocation, NUT peripheral instructions, and [expanded-memory matrix limits]({{ '/hp15c/community-findings.html' | relative_url }}#expanded-memory-hp-15c-lu-matrix-limit-and-patch-caveats). [ROM extraction and microcode provenance]({{ '/firmware/rom-provenance.html' | relative_url }}) explains how the original image was obtained and which claims are reproducible. Neither page replaces the address-oriented tables below.
+[Community findings]({{ '/hp15c/community-findings.html' | relative_url }}) indexes HP Museum forum discoveries by hardware revision, missing RAM, dynamic allocation, NUT peripheral instructions, and [expanded-memory matrix limits]({{ '/hp15c/community-findings.html' | relative_url }}#expanded-memory-hp-15c-lu-matrix-limit-and-patch-caveats). [ROM extraction and microcode provenance]({{ '/microcode/rom-provenance.html' | relative_url }}) explains how the original image was obtained and which claims are reproducible. Neither page replaces the address-oriented tables below.
+
+## Focused HP-15C microcode investigations
+
+- [RAM 015 and dynamic allocation]({{ '/hp15c/ram015-allocation.html' | relative_url }}) — descriptor bytes, actual transitions, tested relative address calculations, and open questions.
+- [NUT CPU status bits ST]({{ '/hp15c/nut-status-bits.html' | relative_url }}) — the 14 S bits, C↔ST transfer semantics, and HP-15C routine-local evidence.
 
 ## ROM address lookup
 
@@ -66,7 +71,7 @@ The 1,024-word ranges below are **navigation bins**, not established microcode m
 | Y/Z/T and storage R0–R9 | [RAM Register Uses — Findings]({{ '/hp15c/ram-register-map.html' | relative_url }}#evidence-supported-functional-findings) |
 | RAM descriptor at `015` | [RAM Register Uses — Descriptor]({{ '/hp15c/ram-register-map.html' | relative_url }}#ram-015-address-descriptor-source) |
 | Unresolved allocations | [RAM Register Uses — Unknowns]({{ '/hp15c/ram-register-map.html' | relative_url }}#unknown-allocations) |
-| Microcode disassembler | [Microcode Tools]({{ '/firmware/tools.html' | relative_url }}) |
+| Microcode disassembler | [Microcode Tools]({{ '/microcode/tools.html' | relative_url }}) |
 | Sources and attribution | [Sources and Credits]({{ '/sources.html' | relative_url }}) |
 
 ## Reading the evidence

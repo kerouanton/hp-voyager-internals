@@ -4,7 +4,7 @@ title: HP-15C Community Research Notes
 
 # HP-15C Community Research Notes
 
-[Home]({{ '/index.html' | relative_url }}) · [Reference index]({{ '/hp15c/reference-index.html' | relative_url }}) · [Hardware architecture]({{ '/hp15c/hardware-architecture.html' | relative_url }}) · [Microcode provenance]({{ '/firmware/rom-provenance.html' | relative_url }})
+[Home]({{ '/index.html' | relative_url }}) · [Reference index]({{ '/hp15c/reference-index.html' | relative_url }}) · [Hardware architecture]({{ '/hp15c/hardware-architecture.html' | relative_url }}) · [Microcode provenance]({{ '/microcode/rom-provenance.html' | relative_url }})
 
 **Purpose:** a short, topic-oriented index to technical discoveries scattered across the Museum of HP Calculators forum. It is **not** a forum mirror or an independent hardware test. Findings are paraphrased, attributed, dated, and restricted to the models discussed. Follow the original messages for context and later corrections.
 
@@ -74,7 +74,7 @@ The evolving forum spreadsheet covers **multiple NUT calculator/peripheral envir
 
 ## Expanded-memory HP-15C: LU matrix limit and patch caveats
 
-**Source:** [“HP-15C expanded memory firmware: problems with matrix larger than 8x8”](https://www.hpmuseum.org/forum/thread-19406.html), Eric Smith and J-F Garnier, **11–16 January 2023**; Giorgio and Smith, **3–8 July 2024**. The thread calls this *firmware*; this site generally uses *microcode* for native NUT ROM words.
+**Source:** [“HP-15C expanded-memory matrix-limit discussion”](https://www.hpmuseum.org/forum/thread-19406.html), Eric Smith and J-F Garnier, **11–16 January 2023**; Giorgio and Smith, **3–8 July 2024**. The discussion uses the historical author's terminology; this site uses *microcode* for native NUT ROM words.
 
 **Reported (first-hand / attributed historical analysis), not a claim about added RAM in the stock machine:**
 
@@ -106,7 +106,7 @@ A useful identifying discrepancy was reported by Giorgio, who found the followin
 
 Smith said his old changes included a shifted display `r` in the running annunciation, identification changes, and checksum compensation; in July 2024 he reported having since identified HP's own original checksum-adjustment words with **high confidence**. He did **not** identify those addresses in this thread. **Do not confuse this five-word comparison with proof that these are HP's checksum-adjustment locations**, nor assume that a zero ROM word is necessarily an unused location safe to overwrite.
 
-**Research policy:** all absolute ROM addresses in this project refer to the **pinned original HP-15C image**, unless a variant is named explicitly. The [microcode ROM provenance page]({{ '/firmware/rom-provenance.html' | relative_url }}#original-and-modified-hp-15c-rom-images) records this caveat alongside the 2004 extraction story.
+**Research policy:** all absolute ROM addresses in this project refer to the **pinned original HP-15C image**, unless a variant is named explicitly. The [microcode ROM provenance page]({{ '/microcode/rom-provenance.html' | relative_url }}#original-and-modified-hp-15c-rom-images) records this caveat alongside the 2004 extraction story.
 
 ## Nonpareil I, Nonpareil II, and preservation
 
@@ -119,8 +119,12 @@ Smith said his old changes included a shifted display `r` in the running annunci
 
 **Project scope:** we are documenting the **real HP-15C and its microcode**, not rebuilding Nonpareil. Nonpareil II anecdotes can identify historical discoveries; V1 remains the code base against which readers can reproduce our source-oriented analyses.
 
+## NUT status bit reuse across routines
+
+In [“MCode: Nut CPU Status Bits”, February 2026](https://www.hpmuseum.org/forum/thread-24677.html), Eric Smith explains that the meanings of NUT CPU bits depend on both calculator model and microcode context: some bits hold global state, while others are temporary digit-entry or math-function selectors. Save/restore of S0–S7 can make a flag appear to have contradictory uses in a static listing. The [HP-15C status-bit reference]({{ '/hp15c/nut-status-bits.html' | relative_url }}) distinguishes known CPU instruction semantics from model-specific interpretations. The HP-10C and HP-16C lists in that thread are **not** automatically HP-15C assignments.
+
 ## How to cite a new forum discovery
 
 Record the **thread URL, direct post permalink when available, author, post date, model/chip revision, precise technical claim, evidence class, and remaining uncertainty**. Recheck later posts for corrections. Prefer short paraphrases over copied posts; do not treat attachments, private hardware notes, vanished pages, or emulator patches as freely redistributable.
 
-[Sources and evidence policy]({{ '/sources.html' | relative_url }}) · [Microcode extraction and provenance]({{ '/firmware/rom-provenance.html' | relative_url }})
+[Sources and evidence policy]({{ '/sources.html' | relative_url }}) · [Microcode extraction and provenance]({{ '/microcode/rom-provenance.html' | relative_url }})
