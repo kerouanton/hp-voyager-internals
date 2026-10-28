@@ -10,7 +10,7 @@ This is a **navigation index**, not a new set of hardware claims. Follow the lin
 
 ## Understand the hardware first
 
-**[HP-15C Hardware Architecture: NUT and R2D2]({{ '/hp15c/hardware-architecture.html' | relative_url }})** explains the three-chip design, internal CPU registers, the two R2D2 memory devices, LCD and keyboard, and the distinction between HP firmware and user programs.
+**[HP-15C Hardware Architecture: NUT and R2D2]({{ '/hp15c/hardware-architecture.html' | relative_url }})** explains the three-chip design, internal CPU registers, the two R2D2 memory devices, LCD and keyboard, and the distinction between HP microcode and user programs.
 
 ## Source-oriented research notes
 
@@ -18,7 +18,7 @@ This is a **navigation index**, not a new set of hardware claims. Follow the lin
 
 ## ROM address lookup
 
-The 1,024-word ranges below are **navigation bins**, not established firmware module boundaries.
+The 1,024-word ranges below are **navigation bins**, not established microcode module boundaries.
 
 | ROM address | Reference |
 |---|---|
@@ -66,11 +66,11 @@ The 1,024-word ranges below are **navigation bins**, not established firmware mo
 | Y/Z/T and storage R0–R9 | [RAM Register Uses — Findings]({{ '/hp15c/ram-register-map.html' | relative_url }}#evidence-supported-functional-findings) |
 | RAM descriptor at `015` | [RAM Register Uses — Descriptor]({{ '/hp15c/ram-register-map.html' | relative_url }}#ram-015-address-descriptor-source) |
 | Unresolved allocations | [RAM Register Uses — Unknowns]({{ '/hp15c/ram-register-map.html' | relative_url }}#unknown-allocations) |
-| Firmware disassembler | [Firmware Tools]({{ '/firmware/tools.html' | relative_url }}) |
+| Microcode disassembler | [Microcode Tools]({{ '/firmware/tools.html' | relative_url }}) |
 | Sources and attribution | [Sources and Credits]({{ '/sources.html' | relative_url }}) |
 
 ## Reading the evidence
 
-A **populated physical address** is not the same as a known firmware function. Nonpareil's emulation behavior and a tested execution trace are not identical to electrical measurements of original hardware. The detail pages distinguish **Confirmed (configuration)**, **Confirmed (emulation)**, **Observed (ROM)** and **Tentative**.
+A **populated physical address** is not the same as a known microcode function. Nonpareil's emulation behavior and a tested execution trace are not identical to electrical measurements of original hardware. The detail pages distinguish **Confirmed (configuration)**, **Confirmed (emulation)**, **Observed (ROM)** and **Tentative**.
 
 [Return to the homepage]({{ '/index.html' | relative_url }})
