@@ -16,7 +16,7 @@ This section aims to describe the **big picture**: startup and diagnostics, shar
 
 ## Original ROM provenance and community discoveries
 
-[How the HP-15C ROM was extracted]({{ '/firmware/rom-provenance.html' | relative_url }}) recounts Eric Smith's ROMsucker method and identifies the exact image used in this project. The [community research index]({{ '/hp15c/community-findings.html' | relative_url }}) collects first-hand forum findings without pretending that missing historical PDFs are accessible.
+[How the HP-15C ROM was extracted]({{ '/firmware/rom-provenance.html' | relative_url }}) recounts Eric Smith's ROMsucker method, identifies the exact image used in this project, and [distinguishes the original ROM from later modified editions]({{ '/firmware/rom-provenance.html' | relative_url }}#original-and-modified-hp-15c-rom-images). The [community research index]({{ '/hp15c/community-findings.html' | relative_url }}) collects first-hand forum findings without pretending that missing historical PDFs are accessible.
 
 ## Address-oriented microcode reference
 
