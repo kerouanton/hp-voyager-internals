@@ -127,6 +127,16 @@ The auxiliary R2D2 is needed because the HP-15C's firmware and memory requiremen
 
 Sources: [HP-15C hardware configuration](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.ncd.tmpl) and [`voyager_r2d2_install()`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/src/voyager_lcd.c#L322-L361).
 
+### Peripheral-recognized instruction words: the `2B0` example
+
+**Not every 10-bit word has to be acted upon by the CPU core.** A peripheral can interpret selected instruction words as commands to itself. An illuminating example is `2B0` (octal `1260`), labeled `clr regs` by the generic Nonpareil decoder.
+
+In the [March 2026 Museum of HP Calculators NUT instruction discussion](https://www.hpmuseum.org/forum/thread-24718.html?highlight=r2d2), Eric Smith explicitly distinguishes this **RAM-chip command** from an instruction executed by the NUT CPU. Its ability to clear memory depends on the RAM chip. He did **not** report verifying that operation on either HP-15C R2D2 type (`1LE2` or `1LH1`).
+
+The [Nonpareil CPU implementation](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/src/proc_nut.c) leaves its `0x2b0` handler commented out; the original HP-15C ROM image contains **no `2B0` word**. **Do not infer** an available block-clear mechanism on original HP-15C R2D2 hardware. The known ON + minus firmware path instead issues explicit writes to selected data addresses.
+
+This is a useful warning against treating a CPU emulator or a generic instruction list as a complete schematic of what each peripheral does. See the [NUT Instruction Set explanation]({{ '/hp15c/instruction-set.html' | relative_url }}#an-instruction-word-can-target-a-memory-chip-2b0).
+
 ## ROM: where the HP firmware lives
 
 The HP-15C ROM contains the **permanent firmware**: initialization, keyboard dispatch, mathematical routines, numeric entry, RPN stack operations, program interpretation, diagnostics and other services. Its 10-bit words are fetched and executed by NUT.
