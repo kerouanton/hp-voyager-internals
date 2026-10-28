@@ -10,6 +10,12 @@ This project starts with the **HP-15C**, a scientific programmable calculator fr
 
 Inspired by classic computer memory maps such as the [Commodore 64 Memory Map](https://sta.c64.org/cbm64mem.html), this site is intended to be a practical reference: *which addresses exist, what the hardware does, where important firmware routines live, and how the pieces work together.*
 
+## How this site is created
+
+The documentation is prepared in collaboration with **OpenAI ChatGPT in manual ("agentless") mode**, under the direction and editorial review of the project maintainer. ChatGPT assists with source inspection, technical analysis, writing, and organization; the maintainer decides what to investigate and publish.
+
+The HP-15C standalone disassembler and tests were developed separately using **ChatGPT Work**, then compiled and validated under **Cygwin** by the maintainer. The underlying NUT decoder derives from Eric Smith's Nonpareil. See [credits and provenance](sources.md) and the [disassembler development history](firmware/disassembler-history.md).
+
 ## A project built on Eric Smith's work
 
 This project owes a substantial debt to **Eric Smith**, creator of [Nonpareil](https://github.com/brouhaha/nonpareil), an emulator of classic HP calculators.
@@ -33,6 +39,7 @@ This is an **independent community documentation project**, not affiliated with 
 | [NUT CPU architecture](hp15c/nut-cpu.md) | Registers, instruction format, addressing, and timing |
 | [Firmware and reverse engineering](firmware/index.md) | ROM analysis, startup, diagnostics, and research notes |
 | [Firmware tools](firmware/tools.md) | C disassembler, tests, and reproduction instructions |
+| [Disassembler development history](firmware/disassembler-history.md) | Work, tests, Cygwin validation, and limitations |
 | [Sources and methodology](sources.md) | Primary resources, credit, provenance, and evidence labels |
 
 ## What we hope to document

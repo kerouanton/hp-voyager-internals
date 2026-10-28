@@ -35,6 +35,14 @@ The default listing uses a linear sweep and preserves raw words. `--every-addres
 
 For exact parser behavior, instruction notation, validation scope, and provenance, refer to [`README.txt`](README.txt).
 
+## Development and validation
+
+The standalone adaptation, regression tests, verification helper, and initial annotated listings were produced using **ChatGPT Work** from Eric Smith's Nonpareil decoder. Work reported successful compilation and testing on Linux, with **265,216 regression cases passing**. The maintainer subsequently compiled and tested the delivered tool under **Cygwin**, confirming operation there.
+
+The project's reference documentation and GitHub organization are maintained with assistance from **OpenAI ChatGPT in manual ("agentless") mode**, with the maintainer directing and reviewing the work.
+
+See the [development history](../../docs/firmware/disassembler-history.md).
+
 ## Attribution and licensing
 
 The core NUT decoder is derived from Nonpareil by **Eric Smith**, retaining its original copyright and `GPL-3.0-only` notice. The standalone modifications and support files are distributed with the included [GPL version 3](COPYING) notice.

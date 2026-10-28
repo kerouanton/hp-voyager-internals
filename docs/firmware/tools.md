@@ -6,6 +6,8 @@ title: Firmware Tools
 
 [Home](../index.md) · [Firmware](index.md)
 
+For authorship, provenance, test coverage, and the maintainer's Cygwin validation, see [Disassembler development and validation history](disassembler-history.md).
+
 ## Standalone NUT disassembler
 
 [**Source, tests and original documentation**](../../tools/hp15c-disassembler/README.md)

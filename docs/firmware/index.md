@@ -17,7 +17,7 @@ Our [standalone C11 NUT disassembler](../../tools/hp15c-disassembler/README.md) 
 - a **linear** listing with raw instruction words;
 - an **every-address** listing that helps investigate alternate entry points and computed jumps.
 
-The tools and tests are published under [`tools/hp15c-disassembler/`](../../tools/hp15c-disassembler/README.md). The **original HP ROM and its derived listings are not hosted here**. See [Tools and reproduction](tools.md).
+The tools and tests are published under [`tools/hp15c-disassembler/`](../../tools/hp15c-disassembler/README.md). The **original HP ROM and its derived listings are not hosted here**. See [Tools and reproduction](tools.md) and the [development and validation history](disassembler-history.md).
 
 ## Investigation map
 
