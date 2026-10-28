@@ -4,13 +4,13 @@
 
 The project aims to collect and cross-reference memory maps, the NUT architecture, hardware interfaces, microcode entry points, and reverse-engineering notes. It is inspired by the address-oriented reference style of classic home-computer memory maps.
 
-**[Community discoveries](docs/hp15c/community-findings.md)** · **[ROM provenance](docs/firmware/rom-provenance.md)** · **[Hardware architecture](docs/hp15c/hardware-architecture.md)** · **[Address index](docs/hp15c/reference-index.md)** · **[Visit the website](https://kerouanton.github.io/hp-voyager-internals/)** · **[Documentation](docs/index.md)** · **[Complete memory map](docs/hp15c/memory-map.md)** · **[ROM map](docs/hp15c/rom-map.md)** · **[Instruction set](docs/hp15c/instruction-set.md)** · **[RAM register uses](docs/hp15c/ram-register-map.md)**
+**[RAM 015 research](docs/hp15c/ram015-allocation.md)** · **[NUT status bits](docs/hp15c/nut-status-bits.md)** · **[Community discoveries](docs/hp15c/community-findings.md)** · **[ROM provenance](docs/microcode/rom-provenance.md)** · **[Hardware architecture](docs/hp15c/hardware-architecture.md)** · **[Address index](docs/hp15c/reference-index.md)** · **[Visit the website](https://kerouanton.github.io/hp-voyager-internals/)** · **[Documentation](docs/index.md)** · **[Complete memory map](docs/hp15c/memory-map.md)** · **[ROM map](docs/hp15c/rom-map.md)** · **[Instruction set](docs/hp15c/instruction-set.md)** · **[RAM register uses](docs/hp15c/ram-register-map.md)**
 
 ## Project authorship and AI assistance
 
 This documentation is developed collaboratively by the **project maintainer** and **OpenAI ChatGPT in manual ("agentless") mode**. The maintainer directs the project, selects research questions, reviews material, and approves publication; ChatGPT helps with source inspection, technical interpretation, writing, and organization. "Agentless" describes the interactive, human-directed workflow—not an independent verification of all hardware claims.
 
-The **standalone C11 disassembler, test suite, and original listings** were created separately with **ChatGPT Work** using Nonpareil source code. The maintainer subsequently compiled and tested the delivered tool under **Cygwin**. See the [development and validation history](docs/firmware/disassembler-history.md) and [credits](docs/sources.md).
+The **standalone C11 disassembler, test suite, and original listings** were created separately with **ChatGPT Work** using Nonpareil source code. The maintainer subsequently compiled and tested the delivered tool under **Cygwin**. See the [development and validation history](docs/microcode/disassembler-history.md) and [credits](docs/sources.md).
 
 ## Acknowledgement
 
