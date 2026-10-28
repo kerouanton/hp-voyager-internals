@@ -29,6 +29,8 @@ This page records the CPU state represented by Nonpareil's NUT implementation. I
 
 Source: [`src/proc_nut.h`](https://github.com/brouhaha/nonpareil/blob/main/src/proc_nut.h), `nut_reg_t`, and [`src/proc_nut.c`](https://github.com/brouhaha/nonpareil/blob/main/src/proc_nut.c).
 
+For a complete first-word overview of instruction families, field variants and opcode formulas, see the [NUT Instruction Set Reference]({{ '/hp15c/instruction-set.html' | relative_url }}).
+
 ## Instruction encoding
 
 NUT instruction words are **10 bits**. The low two opcode bits select four broad decoding categories:
