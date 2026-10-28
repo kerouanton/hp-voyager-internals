@@ -14,6 +14,21 @@ Nonpareil's software authorship and the authorship or rights in HP's original fi
 
 This is an independent documentation effort. It is not affiliated with or endorsed by Eric Smith, Nonpareil, or HP.
 
+## Authorship and development workflow
+
+| Contributor / workflow | Contribution |
+|---|---|
+| **Eric Smith / Nonpareil** | Original NUT disassembler and CPU emulator, HP-15C model definition, and source repository containing the `15c.rom` dump. |
+| **ChatGPT Work** | Standalone C11 adaptation, regression tests, verification helper, original tool documentation, and generated ROM listings. |
+| **Project maintainer** | Project conception and direction, selection of investigations, review and publication; successful compilation and testing of the program on Cygwin. |
+| **OpenAI ChatGPT — manual ("agentless") mode** | Interactive research assistance, technical synthesis, drafting, documentation structure, and preparation of GitHub changes. |
+
+**Agentless** describes the human-directed conversational documentation workflow, not the absence of software tools or repository actions. It is distinct from the **ChatGPT Work** workflow used to create the standalone C disassembler.
+
+AI assistance is part of the provenance, not evidence of correctness: claims must still be checked against original sources and traces.
+
+See the [disassembler development and validation history](firmware/disassembler-history.md).
+
 ## Primary technical source: Nonpareil
 
 - [Nonpareil source repository](https://github.com/brouhaha/nonpareil), by Eric Smith.
@@ -38,7 +53,7 @@ The categories are **about evidence, not certainty that physical HP silicon oper
 
 ## Rights and provenance
 
-Nonpareil source code, machine definitions, firmware dumps, and this project's original explanatory writing may have **different copyrights and licenses**. Consult the file-level notices and upstream licensing documents before reproducing code or redistributing ROM data. This repository initially contains only original documentation and source links.
+Nonpareil source code, machine definitions, firmware dumps, and this project's original explanatory writing may have **different copyrights and licenses**. Consult the file-level notices and upstream licensing documents before reproducing code or redistributing ROM data. This repository contains original documentation and a GPL-3.0-only derivative of the Nonpareil NUT decoder, but does not redistribute the HP firmware ROM or derived ROM listings.
 
 ## Corrections
 
