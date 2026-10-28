@@ -6,7 +6,7 @@ title: HP-15C ROM Map
 
 An address-oriented map of the **original 12,288-word HP-15C ROM**, with explicit evidence and limits. Coverage of the image is complete; identification of firmware functions is not. Unknown regions remain unknown rather than being assigned speculative routine names.
 
-[Memory map]({{ '/hp15c/memory-map.html' | relative_url }}) · [Coverage index](#complete-rom-coverage-index) · [Entry-point map](#address-oriented-entry-point-map) · [Startup](#reset-startup-and-wake) · [Keyboard dispatch](#keycode-indexed-dispatch-table) · [Memory clear](#initialization-and-memory-clearing) · [Diagnostics](#diagnostics-and-self-test) · [Checksums](#rom-checksum-rule-and-results) · [Unknowns](#unresolved-subsystems) · [Sources](#sources-and-validation)
+[Memory map]({{ '/hp15c/memory-map.html' | relative_url }}) · [RAM register uses]({{ '/hp15c/ram-register-map.html' | relative_url }}) · [Coverage index](#complete-rom-coverage-index) · [Entry-point map](#address-oriented-entry-point-map) · [Startup](#reset-startup-and-wake) · [Keyboard dispatch](#keycode-indexed-dispatch-table) · [Memory clear](#initialization-and-memory-clearing) · [Diagnostics](#diagnostics-and-self-test) · [Checksums](#rom-checksum-rule-and-results) · [Unknowns](#unresolved-subsystems) · [Sources](#sources-and-validation)
 
 ## Scope, notation and evidence
 

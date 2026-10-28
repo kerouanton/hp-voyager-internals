@@ -16,6 +16,10 @@ The [HP-15C ROM Map]({{ '/hp15c/rom-map.html' | relative_url }}) documents all p
 
 These reference pages were first researched and drafted using **ChatGPT Work** and published with interactive editorial assistance from ChatGPT in manual (*agentless*) mode, building on **Eric Smith's Nonpareil**.
 
+## RAM register allocation and access traces
+
+The [HP-15C RAM register use map]({{ '/hp15c/ram-register-map.html' | relative_url }}) lists all 80 ordinary RAM addresses, experimentally observed read/write instruction sites, the real-mode stack mapping, and initial R0–R9 storage addressing. **ChatGPT Work** produced the research and first draft using an instrumented Nonpareil-derived CPU harness. The raw trace logs and harness were not supplied for independent replay; this limitation is documented on that page.
+
 ## Start with the disassembler
 
 Our [standalone C11 NUT disassembler](https://github.com/kerouanton/hp-voyager-internals/blob/main/tools/hp15c-disassembler/README.md) reproduces the NUT instruction decoder adapted from **Eric Smith's Nonpareil** and generates:
