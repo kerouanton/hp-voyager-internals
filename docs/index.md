@@ -49,6 +49,8 @@ This is an **independent community documentation project**, not affiliated with 
 | [Microcode and reverse engineering]({{ '/firmware/index.html' | relative_url }}) | ROM analysis, startup, diagnostics, and research notes |
 | [Microcode tools]({{ '/firmware/tools.html' | relative_url }}) | C disassembler, tests, and reproduction instructions |
 | [Disassembler development history]({{ '/firmware/disassembler-history.html' | relative_url }}) | Work, tests, Cygwin validation, and limitations |
+| [Microcode ROM provenance]({{ '/firmware/rom-provenance.html' | relative_url }}) | How Eric Smith extracted the original Voyager ROMs and where our ROM image comes from |
+| [Community research findings]({{ '/hp15c/community-findings.html' | relative_url }}) | Forum discoveries about chip revisions, unmapped RAM, allocation, and Nonpareil development |
 | [Sources and methodology]({{ '/sources.html' | relative_url }}) | Primary resources, credit, provenance, and evidence labels |
 
 ## What we hope to document
