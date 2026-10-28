@@ -8,7 +8,7 @@ An address-oriented reference for the **original HP-15C**, based principally on 
 
 **Notation:** all addresses and ROM words below are hexadecimal; ROM addresses refer to **10-bit instruction words**, not byte offsets. Data addresses identify **14-nibble registers** (56 bits per register), not bytes.
 
-[Home](../index.md) · [NUT CPU](nut-cpu.md) · [Sources](../sources.md)
+[Home]({{ '/index.html' | relative_url }}) · [NUT CPU]({{ '/hp15c/nut-cpu.html' | relative_url }}) · [Sources]({{ '/sources.html' | relative_url }})
 
 ## Instruction memory (ROM)
 
@@ -98,4 +98,4 @@ The tables above describe **addressable hardware resources in Nonpareil's HP-15C
 
 Future entries will attach ROM code and trace evidence before assigning such names.
 
-[Back to index](../index.md)
+[Back to index]({{ '/index.html' | relative_url }})
