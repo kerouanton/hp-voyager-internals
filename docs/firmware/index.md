@@ -10,6 +10,12 @@ The original HP-15C firmware occupies **12,288 10-bit instruction words** mapped
 
 This section aims to describe the **big picture**: startup and diagnostics, shared services, keyboard handling, user-program interpretation, numerical algorithms, and memory management.
 
+## Address-oriented firmware reference
+
+The [HP-15C ROM Map]({{ '/hp15c/rom-map.html' | relative_url }}) documents all populated ROM ranges, verified dispatch data, startup and initialization sequences, and diagnostic paths. It distinguishes confirmed instruction effects from tentative functional labels. The companion [Complete Memory Map]({{ '/hp15c/memory-map.html' | relative_url }}) covers the full data-register address space, special I/O, LCD wiring, and keyboard interface.
+
+These reference pages were first researched and drafted using **ChatGPT Work** and published with interactive editorial assistance from ChatGPT in manual (*agentless*) mode, building on **Eric Smith's Nonpareil**.
+
 ## Start with the disassembler
 
 Our [standalone C11 NUT disassembler](https://github.com/kerouanton/hp-voyager-internals/blob/main/tools/hp15c-disassembler/README.md) reproduces the NUT instruction decoder adapted from **Eric Smith's Nonpareil** and generates:
