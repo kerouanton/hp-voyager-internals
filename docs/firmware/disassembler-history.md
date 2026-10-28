@@ -4,7 +4,7 @@ title: HP-15C Disassembler — Development and Validation History
 
 # HP-15C Disassembler: Development and Validation
 
-[Home](../index.md) · [Firmware](index.md) · [Tools](tools.md) · [Source code](../../tools/hp15c-disassembler/README.md)
+[Home]({{ '/index.html' | relative_url }}) · [Firmware]({{ '/firmware/index.html' | relative_url }}) · [Tools]({{ '/firmware/tools.html' | relative_url }}) · [Source code](https://github.com/kerouanton/hp-voyager-internals/blob/main/tools/hp15c-disassembler/README.md)
 
 This page records **who contributed what**, where the code originated, what was tested, and the limits of the results.
 
@@ -37,7 +37,7 @@ The original bundle includes:
 - `README.txt` and licensing notes;
 - a linear annotated ROM listing and an independent every-address listing.
 
-The source files and tests are hosted under [`tools/hp15c-disassembler/`](../../tools/hp15c-disassembler/README.md). **The ROM dump and its ROM-derived listings are not redistributed here.** Visitors can obtain the ROM from its [upstream Nonpareil location](https://github.com/brouhaha/nonpareil/blob/main/ncd/15c/15c.rom) and regenerate the listings locally.
+The source files and tests are hosted under [`tools/hp15c-disassembler/`](https://github.com/kerouanton/hp-voyager-internals/blob/main/tools/hp15c-disassembler/README.md). **The ROM dump and its ROM-derived listings are not redistributed here.** Visitors can obtain the ROM from its [upstream Nonpareil location](https://github.com/brouhaha/nonpareil/blob/main/ncd/15c/15c.rom) and regenerate the listings locally.
 
 ## Validation record
 
@@ -89,4 +89,4 @@ Neither output demonstrates that all decoded words are executed, and **a disasse
 
 The adapted C decoder preserves Eric Smith's `GPL-3.0-only` copyright/license notice and is distributed with the [GPL text](../../tools/hp15c-disassembler/COPYING). Its license **does not grant rights to the original HP firmware**. More historical licensing context appears in [`NONPAREIL-COPYING.txt`](../../tools/hp15c-disassembler/NONPAREIL-COPYING.txt).
 
-[Back to Firmware](index.md)
+[Back to Firmware]({{ '/firmware/index.html' | relative_url }})
