@@ -10,7 +10,7 @@ The first HP-15C pages rely heavily on the pioneering work of **Eric Smith**, cr
 
 The HP-15C ROM dump referred to here is the file [`ncd/15c/15c.rom`](https://github.com/brouhaha/nonpareil/blob/main/ncd/15c/15c.rom) from the Nonpareil repository (the file header records an extraction date of 2004-01-25). This project **links to that upstream dump but does not rehost it**.
 
-Nonpareil's software authorship and the authorship or rights in HP's original firmware are separate matters. The availability of a ROM dump in a public source repository must not be interpreted as an unrestricted redistribution license.
+Nonpareil's software authorship and the authorship or rights in HP's original microcode are separate matters. The availability of a ROM dump in a public source repository must not be interpreted as an unrestricted redistribution license.
 
 This is an independent documentation effort. It is not affiliated with or endorsed by Eric Smith, Nonpareil, or HP.
 
@@ -61,7 +61,7 @@ The categories are **about evidence, not certainty that physical HP silicon oper
 
 ## Rights and provenance
 
-Nonpareil source code, machine definitions, firmware dumps, and this project's original explanatory writing may have **different copyrights and licenses**. Consult the file-level notices and upstream licensing documents before reproducing code or redistributing ROM data. This repository contains original documentation and a GPL-3.0-only derivative of the Nonpareil NUT decoder, but does not redistribute the HP firmware ROM or derived ROM listings.
+Nonpareil source code, machine definitions, microcode dumps, and this project's original explanatory writing may have **different copyrights and licenses**. Consult the file-level notices and upstream licensing documents before reproducing code or redistributing ROM data. This repository contains original documentation and a GPL-3.0-only derivative of the Nonpareil NUT decoder, but does not redistribute the HP microcode ROM or derived ROM listings.
 
 ## Corrections
 
