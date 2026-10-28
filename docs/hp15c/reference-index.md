@@ -12,6 +12,10 @@ This is a **navigation index**, not a new set of hardware claims. Follow the lin
 
 **[HP-15C Hardware Architecture: NUT and R2D2]({{ '/hp15c/hardware-architecture.html' | relative_url }})** explains the three-chip design, internal CPU registers, the two R2D2 memory devices, LCD and keyboard, and the distinction between HP firmware and user programs.
 
+## Source-oriented research notes
+
+[Community findings]({{ '/hp15c/community-findings.html' | relative_url }}) indexes HP Museum forum discoveries by hardware revision, missing RAM, dynamic allocation, and NUT peripheral instructions. [ROM extraction and microcode provenance]({{ '/firmware/rom-provenance.html' | relative_url }}) explains how the original image was obtained and which claims are reproducible. Neither page replaces the address-oriented tables below.
+
 ## ROM address lookup
 
 The 1,024-word ranges below are **navigation bins**, not established firmware module boundaries.
