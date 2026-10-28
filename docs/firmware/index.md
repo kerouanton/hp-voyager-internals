@@ -14,6 +14,10 @@ This section aims to describe the **big picture**: startup and diagnostics, shar
 
 **[Hardware architecture overview]({{ '/hp15c/hardware-architecture.html' | relative_url }})** explains how the NUT processor retrieves microcode instructions from the two R2D2 memory circuits and accesses data memory and the LCD.
 
+## Original ROM provenance and community discoveries
+
+[How the HP-15C ROM was extracted]({{ '/firmware/rom-provenance.html' | relative_url }}) recounts Eric Smith's ROMsucker method and identifies the exact image used in this project. The [community research index]({{ '/hp15c/community-findings.html' | relative_url }}) collects first-hand forum findings without pretending that missing historical PDFs are accessible.
+
 ## Address-oriented microcode reference
 
 The [HP-15C ROM Map]({{ '/hp15c/rom-map.html' | relative_url }}) documents all populated ROM ranges, verified dispatch data, startup and initialization sequences, and diagnostic paths. It distinguishes confirmed instruction effects from tentative functional labels. The companion [Complete Memory Map]({{ '/hp15c/memory-map.html' | relative_url }}) covers the full data-register address space, special I/O, LCD wiring, and keyboard interface.
