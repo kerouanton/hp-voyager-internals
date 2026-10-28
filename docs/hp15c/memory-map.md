@@ -269,6 +269,8 @@ Sources: [branches and computed jump](https://github.com/brouhaha/nonpareil/blob
 
 ## Firmware-assigned RAM uses
 
+A dedicated [80-register RAM-use reference]({{ '/hp15c/ram-register-map.html' | relative_url }}) records all ordinary addresses, Work-reported execution-trace read/write sites, the initial real-mode Y/Z/T and R0–R9 mappings, and explicit unknowns. Its assignments apply only to the tested states and are not a complete firmware allocation model.
+
 The following entries describe specific evidenced accesses. They are deliberately narrower than a complete user-memory allocation scheme. **Observed (ROM)** unless explicitly marked otherwise.
 
 | Data address / field | Established use | ROM evidence and limits |
