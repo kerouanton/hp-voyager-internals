@@ -6,9 +6,9 @@ title: HP-15C Complete Memory Map
 
 [Address and topic index]({{ '/hp15c/reference-index.html' | relative_url }}) · [Home]({{ '/index.html' | relative_url }})
 
-An address-oriented reference for the **original HP-15C**, based on its ROM and Eric Smith's Nonpareil implementation. Hardware resources, CPU state, and firmware allocations are documented separately.
+An address-oriented reference for the **original HP-15C**, based on its ROM and Eric Smith's Nonpareil implementation. Hardware resources, CPU state, and microcode allocations are documented separately.
 
-[ROM map]({{ '/hp15c/rom-map.html' | relative_url }}) · [Address spaces](#address-spaces) · [ROM](#instruction-rom) · [RAM and I/O](#data-ram-and-r2d2-io) · [LCD](#lcd-segment-map) · [Keyboard](#keyboard-interface) · [CPU registers](#cpu-internal-registers) · [Firmware RAM uses](#firmware-assigned-ram-uses) · [Sources](#sources-and-reproducibility)
+[ROM map]({{ '/hp15c/rom-map.html' | relative_url }}) · [Address spaces](#address-spaces) · [ROM](#instruction-rom) · [RAM and I/O](#data-ram-and-r2d2-io) · [LCD](#lcd-segment-map) · [Keyboard](#keyboard-interface) · [CPU registers](#cpu-internal-registers) · [Microcode RAM uses](#firmware-assigned-ram-uses) · [Sources](#sources-and-reproducibility)
 
 For a conceptual introduction to these address spaces and their physical owners, see [HP-15C Hardware Architecture: NUT and R2D2]({{ '/hp15c/hardware-architecture.html' | relative_url }}).
 
@@ -32,7 +32,7 @@ Addresses and ROM words are hexadecimal unless stated otherwise. Register widths
 | Peripheral-address selector | 8 bits; `00–FF` | Device-specific operations | Separate `pf_addr` namespace in the generic CPU emulator; no HP-41 peripheral register map is implied. |
 | Smart-peripheral selector | 4 bits; `0–F` | Subsequent bus protocol words | Generic `SELPF` instruction state, not a RAM bank selector. |
 | CPU-internal state | Named registers and latches | Varies | Not assigned data-bus addresses. |
-| Keyboard code | 8 bits | Latched hardware key identifier | Not a RAM address or a ROM entry address. Firmware can use it as a ROM table index. |
+| Keyboard code | 8 bits | Latched hardware key identifier | Not a RAM address or a ROM entry address. Microcode can use it as a ROM table index. |
 
 Source: [CPU state definitions](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/src/proc_nut.h#L24-L197), [RAM/PF selection](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/src/proc_nut.c#L901-L1056), and [configuration](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.ncd.tmpl). **Confirmed (configuration)** and **Confirmed (emulation)** as distinguished below.
 
@@ -73,7 +73,7 @@ Every address in `000–3FF` is covered below. “Unmapped” means absent from 
 | `0E0–0FF` | 32 | Ordinary RAM, R2D2 index 0 | Confirmed (configuration) |
 | `100–3FF` | 768 | Unmapped | Confirmed (configuration) + Confirmed (emulation) |
 
-Each R2D2 supplies **40 ordinary registers**: eight low registers and 32 high registers. Total ordinary RAM is **80 × 56 = 4,480 bits**, equivalent to 560 octets. This does **not** mean 80 user storage registers: firmware state and user allocations share the resources.
+Each R2D2 supplies **40 ordinary registers**: eight low registers and 32 high registers. Total ordinary RAM is **80 × 56 = 4,480 bits**, equivalent to 560 octets. This does **not** mean 80 user storage registers: microcode state and user allocations share the resources.
 
 The driver separately creates three special addresses per R2D2 at `index × 0x10 + 0x08`. Thus 86 data addresses are installed, of which 80 are ordinary RAM. Do not count all six special addresses as six additional physical 56-bit RAM registers.
 
@@ -143,7 +143,7 @@ This accounts for all **110 declared slots: 100 connected bits and 10 disconnect
 
 For bit b, the implementation reads nibble `floor(b / 4)` and mask `1 << (b mod 4)`. Example: `009:46` is nibble 11, mask `0x4`, and drives position 0 segment g. Addresses in the XML are decimal (`reg="10"` means data address `00A`, not `010`).
 
-The table uses configuration position/segment names rather than inferring printed annunciator legends from generic Voyager artwork or copied layout comments. A j-bit mapping alone does not prove a firmware flag's meaning.
+The table uses configuration position/segment names rather than inferring printed annunciator legends from generic Voyager artwork or copied layout comments. A j-bit mapping alone does not prove a microcode flag's meaning.
 
 ### LCD control state
 
@@ -166,7 +166,7 @@ There is no keyboard matrix mapped into the data-RAM table. The model passes a h
 | Interface | Opcode / state | Effect |
 |---|---|---|
 | `c=keys` | `220` | Copy keycode high nibble into C[4], low nibble into C[3]. Other nibbles are unchanged. |
-| `goto keys` | `230` | Replace the low byte of the **already incremented** PC with the keycode. It does not read the firmware's dispatch table. |
+| `goto keys` | `230` | Replace the low byte of the **already incremented** PC with the keycode. It does not read the microcode's dispatch table. |
 | `? kb` | `3CC` | Carry becomes true in `KB_PRESSED` or `KB_RELEASED`; can initiate the debounce countdown. |
 | `clr kb` | `3C8` | Change `KB_RELEASED` to `KB_WAIT_CHK`; does not unconditionally erase a held key. |
 | Press / release | CPU events | Press latches the key; release changes key-down/state, not the keycode itself. |
@@ -177,7 +177,7 @@ Source: [keyboard instructions and scanner](https://github.com/brouhaha/nonparei
 
 ### Complete hardware keycode table
 
-Layout ID is the configuration's decimal `user_keycode`, not a scan code. Shifted functions use the same physical key; f/g processing belongs to firmware. All 39 keys are listed in configuration order. **Confirmed (configuration).**
+Layout ID is the configuration's decimal `user_keycode`, not a scan code. Shifted functions use the same physical key; f/g processing belongs to microcode. All 39 keys are listed in configuration order. **Confirmed (configuration).**
 
 | Layout ID | Unshifted legend | Hardware code |
 |---:|---|---|
@@ -225,7 +225,7 @@ Source: [keyboard declaration](https://github.com/brouhaha/nonpareil/blob/c347bc
 
 ## CPU-internal registers
 
-These are CPU state, **not addresses in `000–3FF`**. Register purpose here describes the machine interface, not a fixed firmware allocation.
+These are CPU state, **not addresses in `000–3FF`**. Register purpose here describes the machine interface, not a fixed microcode allocation.
 
 | Register / state | Width | Meaning / access |
 |---|---:|---|
@@ -246,7 +246,7 @@ These are CPU state, **not addresses in `000–3FF`**. Register purpose here des
 | External flags | 14 boolean inputs | Generic Nut peripheral inputs; do not confuse these with RAM-resident user flags or S bits. HP-41-specific names in the header do not prove HP-15C wiring. |
 | Keyboard latch/state | 8-bit code plus state | Keycode, key-down and debounce state. |
 | Awake/display state | Boolean state | CPU wake/sleep and the CPU's copy of display enable. |
-| Instruction phase / pending operand | Emulator bookkeeping | Tracks second words of long branches/LDI, CXISA's extra read cycle and SELPF state. Not general-purpose firmware RAM. |
+| Instruction phase / pending operand | Emulator bookkeeping | Tracks second words of long branches/LDI, CXISA's extra read cycle and SELPF state. Not general-purpose microcode RAM. |
 | Active-bank/page arrays | Emulator bookkeeping | Generic Nut mapping machinery; original HP-15C configuration only supplies bank 0. |
 
 Sources: [state layout](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/src/proc_nut.h#L24-L197), [CPU register metadata](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/src/proc_nut.c#L93-L133), [return stack](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/src/proc_nut.c#L626-L706), [status transfers](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/src/proc_nut.c#L1096-L1181), [G-register caveats](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/src/proc_nut.c#L1355-L1436), [cycle execution](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/src/proc_nut.c#L1902-L1966). **Confirmed (emulation).**
@@ -264,7 +264,7 @@ Sources: [state layout](https://github.com/brouhaha/nonpareil/blob/c347bc1ab2017
 | `m` | 3–12 |
 | `s` | 13 |
 
-Source: [`op_arith()` field selection](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/src/proc_nut.c#L418-L440). **Confirmed (emulation).** The field names reflect conventional numeric formatting, but the firmware can use the same nibbles for addresses, counters or packed flags.
+Source: [`op_arith()` field selection](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/src/proc_nut.c#L418-L440). **Confirmed (emulation).** The field names reflect conventional numeric formatting, but the microcode can use the same nibbles for addresses, counters or packed flags.
 
 ### ROM-address formation
 
@@ -279,9 +279,9 @@ Source: [`op_arith()` field selection](https://github.com/brouhaha/nonpareil/blo
 
 Sources: [branches and computed jump](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/src/proc_nut.c#L711-L767), [ROM reads and literals](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/src/proc_nut.c#L1572-L1636). **Confirmed (emulation).**
 
-## Firmware-assigned RAM uses
+## Microcode-assigned RAM uses
 
-A dedicated [80-register RAM-use reference]({{ '/hp15c/ram-register-map.html' | relative_url }}) records all ordinary addresses, Work-reported execution-trace read/write sites, the initial real-mode Y/Z/T and R0–R9 mappings, and explicit unknowns. Its assignments apply only to the tested states and are not a complete firmware allocation model.
+A dedicated [80-register RAM-use reference]({{ '/hp15c/ram-register-map.html' | relative_url }}) records all ordinary addresses, Work-reported execution-trace read/write sites, the initial real-mode Y/Z/T and R0–R9 mappings, and explicit unknowns. Its assignments apply only to the tested states and are not a complete microcode allocation model.
 
 The following entries describe specific evidenced accesses. They are deliberately narrower than a complete user-memory allocation scheme. **Observed (ROM)** unless explicitly marked otherwise.
 
@@ -294,12 +294,12 @@ The following entries describe specific evidenced accesses. They are deliberatel
 | `01A` | Initialization write `00000000A00000` | [`0368–036B`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom#L875-L878), while data page `010` remains selected. This is one of the masked special registers, not ordinary RAM. Permanent field meanings remain unknown. |
 | `009`, `00A` | Display bitmap writes | Many sites; [`2845–285E`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom#L8264-L8289) constructs fixed bitmaps and enables blinking; [`1779–177C`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom#L6012-L6015) writes all-one bitmaps. Wiring is independently confirmed above. |
 | All ordinary RAM, plus special/unmapped positions encountered | Initialization clearing | [`0355–035B`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom#L856-L862) calls [`2AE9–2AF5`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom#L8940-L8952) with low-byte bounds `A=C0`, `C=1B`. The loop attempts zero writes to `01A…000`, then `0FF…0C0`; the selector is not a byte address. See [clear-loop proof]({{ '/hp15c/rom-map.html' | relative_url }}#initialization-and-memory-clearing). |
-| `008`, `018` | Accesses may occur, but values do not persist through CPU writes | For example [`13AF–13B0`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom#L5042-L5043) writes all ones to `008`; the emulator ignores it. Do not assign stored firmware flags to these addresses. |
-| Other locations / fields | Firmware-assigned meanings not established | No complete verified mapping of user R0–R9, I, LAST X, real/complex stacks, statistics, matrices, program storage, allocation metadata or packed user flags is supplied by the cited configuration/CPU files. |
+| `008`, `018` | Accesses may occur, but values do not persist through CPU writes | For example [`13AF–13B0`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom#L5042-L5043) writes all ones to `008`; the emulator ignores it. Do not assign stored microcode flags to these addresses. |
+| Other locations / fields | Microcode-assigned meanings not established | No complete verified mapping of user R0–R9, I, LAST X, real/complex stacks, statistics, matrices, program storage, allocation metadata or packed user flags is supplied by the cited configuration/CPU files. |
 
 The RAM-clearing routine covers 91 **attempted addresses**: 80 ordinary registers, four bitmap-style registers, two ignored special registers and five unmapped positions (`00B–00F`). The post-clear setup writes nonzero values; “memory clear” therefore does not mean that every mapped register is zero when the calculator returns to use.
 
-A full firmware allocation map needs independently verified state transitions and mode-sensitive analysis. Physical capacity and initialization constants alone do not establish user-register numbering or packed program layout.
+A full microcode allocation map needs independently verified state transitions and mode-sensitive analysis. Physical capacity and initialization constants alone do not establish user-register numbering or packed program layout.
 
 ## Sources and reproducibility
 
@@ -312,7 +312,7 @@ A full firmware allocation map needs independently verified state transitions an
 
 Upstream commit: `c347bc1ab20170c253512042f7aac0d952f304ea`. Project snapshot: `789ed0d540b022a97efe6afca369747b750e69b2`. Prepared 2026-10-28. The ROM file's SHA-256 is `dea4e861ad2aaa2bba49b5ea4e313a04f4fac9a4abf2516284ecc0f6f394568a`; its Git blob SHA-1 is `c276b93de235448e65b411412c579c1070cd8955`. These identify the original image, not the separate 192-register patch or later HP-15C products.
 
-The LCD table was transcribed programmatically from all 110 configuration slots and checked for 100 distinct connected register/bit pairs. All 39 key entries were checked against the model. The data map partitions all 1,024 selector values without overlap. The ROM address records were checked against both declared regions. The published C decoder and its 265,216-case test suite were compiled and run; decoder tests validate decoding, not hardware fidelity or firmware names.
+The LCD table was transcribed programmatically from all 110 configuration slots and checked for 100 distinct connected register/bit pairs. All 39 key entries were checked against the model. The data map partitions all 1,024 selector values without overlap. The ROM address records were checked against both declared regions. The published C decoder and its 265,216-case test suite were compiled and run; decoder tests validate decoding, not hardware fidelity or microcode names.
 
 The address-oriented presentation is inspired by the [Commodore 64 memory map](https://sta.c64.org/cbm64mem.html). Its byte-addressed architecture is not used as a technical model for the Nut.
 
