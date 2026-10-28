@@ -113,6 +113,14 @@ The storage operation's `data=c` at 0945 uses an already computed selector. Its 
 
 **Observed (ROM):** 007[2:0] is a retained-state validity marker for this check. This does not establish the meanings of its other nibbles. Other ROM paths read, rotate and rewrite 007, so it must not be described simply as an otherwise unused constant register; see [`037D–0383`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom#L896-L902).
 
+### Dynamic allocation before R02
+
+**Reported (first-hand):** in [Eric Smith's February 2024 explanation of the HP-15C R↑/R↓ microcode](https://www.hpmuseum.org/forum/thread-21336.html), the optional **SOLVE/INTEGRATE buffer always begins at physical `0C0`** when allocated. Optional imaginary components of **X, Y, Z, T, and LAST X** occupy RAM between that buffer and user register R02. Hence R02 at `0C0` is **only an initial, unallocated case**, not a permanent address binding.
+
+The roll-down microcode reads the word immediately **before R02** as if it contained imaginary X. With neither optional area allocated, this means **`0BF`**, a nonexistent physical data address; the hardware read returns zero and the non-complex execution path discards the value. When the SOLVE/INTEGRATE buffer exists without a complex stack, the read can touch its last word instead. This is a first-hand microcode/hardware account; we have not reproduced a pin-level or independent dynamic-allocation trace.
+
+**Open:** correlate those allocations with before/after contents of physical **RAM `015`** and verify the descriptor's individual nibbles through original-ROM call sites. The forum explanation establishes a conceptual layout, **not** a field-level decode of `015`. See [community findings]({{ '/hp15c/community-findings.html' | relative_url }}#dynamic-allocation-before-user-register-r02).
+
 ### RAM 015: address-descriptor source
 
 Initialization writes `C0D2D2D2D2D2D2` to 015 at [`035C–0365`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom#L863-L872). Crucially, later code actually consumes this register when forming RAM addresses:
