@@ -29,6 +29,8 @@ This project **links** to the upstream image but **does not redistribute** the R
 3. Capture synchronized bus traffic. Smith's 2024 pinout notes explicitly name **phase 1**, **phase 2**, **`SYNC`**, and **`ISA`** for his Voyager ROM-dumping connections; phase 2 was not strictly necessary for the dump.
 4. Decode the instruction words by address into an image suitable for microcode-level simulation.
 
+**Historical equipment notes (not independently rebuilt):** the indexed text of Smith's HHC 2004 paper describes the *ROMsucker Mark 2* as using an **LT1045** logic-level translator and a **DLP-USB245M** USB interface module. It names two Linux utilities, **`suck`** (binary capture) and **`dumplog`** (decoding a human-readable trace). These details are attributed to Smith's historical paper and are **not** a verified reconstruction, published pinout, or presently working download of the hardware/software design. The original PDF host is unavailable.
+
 **Important boundary:** the forum documents the signals he connected and his method, but it does **not** provide a complete verified electrical schematic, sample capture, or reproducible USB hardware design for our particular HP-15C specimen. We have **not** reproduced the extraction. The date, extracted image, and data-map compatibility are supported by the pinned Nonpareil repository; the historical physical procedure is a separately attributed first-hand account.
 
 The technique works because **ROM checksum microcode reads stored words that might otherwise never be fetched by ordinary calculator operations**. It is different from recording only the instructions executed while pressing keys, which could leave large unused or rarely reached ROM regions uncaptured.
