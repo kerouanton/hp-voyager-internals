@@ -40,6 +40,14 @@ See the [disassembler development and validation history]({{ '/firmware/disassem
 
 The initial examination used Nonpareil commit `c347bc1ab20170c253512042f7aac0d952f304ea` as the source reference for the standalone disassembler. Links above point to the moving `main` branch and may evolve; individual claims should eventually link to pinned revisions.
 
+## Community reports, lost pages, and original ROM provenance
+
+The [community research notes]({{ '/hp15c/community-findings.html' | relative_url }}) index selected first-hand posts from the [Museum of HP Calculators forum](https://www.hpmuseum.org/forum/) with author, date, scope and uncertainty. Particularly relevant threads cover the [R2D2/NUT hardware variants](https://www.hpmuseum.org/forum/thread-21739.html), [missing-RAM behavior during R↑/R↓](https://www.hpmuseum.org/forum/thread-21336.html), [NUT RAM-chip instruction `2B0`](https://www.hpmuseum.org/forum/thread-24718.html), [Nonpareil development history](https://www.hpmuseum.org/forum/thread-18940.html), [Nonpareil II's closed-source plans and testing](https://www.hpmuseum.org/forum/thread-21213.html), and [the 2026 personal-Web-server outage](https://www.hpmuseum.org/forum/thread-23279.html).
+
+The [microcode ROM provenance page]({{ '/firmware/rom-provenance.html' | relative_url }}) documents Eric Smith's account of physical Voyager ROM extraction during self-test and distinguishes the historical account from the source-controlled ROM image and its header. The historical 2004 paper was hosted on now-inaccessible `brouhaha.com` infrastructure. **We do not claim an archive or an active replacement download for it.** Do not cite a dead PDF or a missing Wayback capture as a verified working reference.
+
+For a source claim taken from the forum we add **Reported (first-hand)** rather than upgrading it automatically to a silicon measurement, independent trace, or ROM observation by this project. The rights and licenses of historic papers, photographs, ROMs and microcode patches are not assumed from their public availability.
+
 ## Interpretation labels
 
 | Label | Meaning |
