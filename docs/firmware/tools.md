@@ -4,13 +4,13 @@ title: Firmware Tools
 
 # Firmware Tools and Reproduction
 
-[Home](../index.md) · [Firmware](index.md)
+[Home]({{ '/index.html' | relative_url }}) · [Firmware]({{ '/firmware/index.html' | relative_url }})
 
-For authorship, provenance, test coverage, and the maintainer's Cygwin validation, see [Disassembler development and validation history](disassembler-history.md).
+For authorship, provenance, test coverage, and the maintainer's Cygwin validation, see [Disassembler development and validation history]({{ '/firmware/disassembler-history.html' | relative_url }}).
 
 ## Standalone NUT disassembler
 
-[**Source, tests and original documentation**](../../tools/hp15c-disassembler/README.md)
+[**Source, tests and original documentation**](https://github.com/kerouanton/hp-voyager-internals/blob/main/tools/hp15c-disassembler/README.md)
 
 The NUT decoder is adapted from Eric Smith's Nonpareil and runs without GTK or the Nonpareil GUI. Compile with a C11 compiler; the commands below work with GCC on Cygwin.
 
@@ -36,4 +36,4 @@ The optional Node.js verifier is provided as `verify.cjs`; it checks ROM provena
 
 ### Rights
 
-The C implementation derives from GPL-3.0-only Nonpareil source; the associated [license text](../../tools/hp15c-disassembler/COPYING) and original [licensing notice](../../tools/hp15c-disassembler/NONPAREIL-COPYING.txt) are included. The ROM is not redistributed. See [Sources](../sources.md).
+The C implementation derives from GPL-3.0-only Nonpareil source; the associated [license text](../../tools/hp15c-disassembler/COPYING) and original [licensing notice](../../tools/hp15c-disassembler/NONPAREIL-COPYING.txt) are included. The ROM is not redistributed. See [Sources]({{ '/sources.html' | relative_url }}).
