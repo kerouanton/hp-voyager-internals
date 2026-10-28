@@ -48,7 +48,7 @@ The published standalone decoder is used to inspect candidate sequences, with in
 | 0C0–0DF | 32 | Index 1 |
 | 0E0–0FF | 32 | Index 0 |
 
-**Confirmed (configuration).** Total: 80 × 56 = 4,480 bits. Six extra installed addresses are excluded: 008/018 read zero and ignore writes; 009/00A drive LCD bitmaps; 019/01A have bitmap-style low-six-bit read masking without a second connected LCD. These special addresses can participate in firmware operations but are not six additional ordinary RAM registers.
+**Confirmed (configuration).** Total: 80 × 56 = 4,480 bits. Six extra installed addresses are excluded: 008/018 read zero and ignore writes; 009/00A drive LCD bitmaps; 019/01A have bitmap-style low-six-bit read masking without a second connected LCD. These special addresses can participate in microcode operations but are not six additional ordinary RAM registers.
 
 ## How the ROM addresses RAM
 
@@ -78,7 +78,7 @@ The service at [`17E8–17F3`](https://github.com/brouhaha/nonpareil/blob/c347bc
 | [`17F0`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom#L6131) | RAM[001] ← RAM[000] |
 | [`17F2`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom#L6133) | RAM[000] ← saved incoming C |
 
-The stack-entry experiment supplies semantic evidence for the names Y/Z/T; the shift sequence alone would only prove a three-register shift. This hardware RAM usage must not be confused with the CPU return-address stack. N is also used temporarily by firmware, including diagnostics.
+The stack-entry experiment supplies semantic evidence for the names Y/Z/T; the shift sequence alone would only prove a three-register shift. This hardware RAM usage must not be confused with the CPU return-address stack. N is also used temporarily by microcode, including diagnostics.
 
 ### User storage registers R0–R9
 
@@ -113,6 +113,14 @@ The storage operation's `data=c` at 0945 uses an already computed selector. Its 
 
 **Observed (ROM):** 007[2:0] is a retained-state validity marker for this check. This does not establish the meanings of its other nibbles. Other ROM paths read, rotate and rewrite 007, so it must not be described simply as an otherwise unused constant register; see [`037D–0383`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom#L896-L902).
 
+### Dynamic allocation before R02
+
+**Reported (first-hand):** in [Eric Smith's February 2024 explanation of the HP-15C R↑/R↓ microcode](https://www.hpmuseum.org/forum/thread-21336.html), the optional **SOLVE/INTEGRATE buffer always begins at physical `0C0`** when allocated. Optional imaginary components of **X, Y, Z, T, and LAST X** occupy RAM between that buffer and user register R02. Hence R02 at `0C0` is **only an initial, unallocated case**, not a permanent address binding.
+
+The roll-down microcode reads the word immediately **before R02** as if it contained imaginary X. With neither optional area allocated, this means **`0BF`**, a nonexistent physical data address; the hardware read returns zero and the non-complex execution path discards the value. When the SOLVE/INTEGRATE buffer exists without a complex stack, the read can touch its last word instead. This is a first-hand microcode/hardware account; we have not reproduced a pin-level or independent dynamic-allocation trace.
+
+**Open:** correlate those allocations with before/after contents of physical **RAM `015`** and verify the descriptor's individual nibbles through original-ROM call sites. The forum explanation establishes a conceptual layout, **not** a field-level decode of `015`. See [community findings]({{ '/hp15c/community-findings.html' | relative_url }}#dynamic-allocation-before-user-register-r02).
+
 ### RAM 015: address-descriptor source
 
 Initialization writes `C0D2D2D2D2D2D2` to 015 at [`035C–0365`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom#L863-L872). Crucially, later code actually consumes this register when forming RAM addresses:
@@ -134,7 +142,7 @@ Thus **address-descriptor source** is **Observed (ROM)**. A complete interpretat
 | [`2B8F–2B9E`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom#L9106-L9121) | Alternates selected-address reads and writes while incrementing C.x and decrementing a count in A.m | Observed (ROM); memory-moving mechanism. A specific program/matrix allocator role is not proved here. |
 | [`2AE9–2AF5`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom#L8940-L8952) | Descending two-nibble address loop; select each address, write zero from B/C exchange, stop when C.wp equals A.wp | Observed (ROM); bounds supplied by caller. |
 
-The C.x high nibble can be explicitly cleared before a computed access, constraining that particular path to addresses 000–0FF. This is firmware behavior; the CPU RAM selector itself remains 10 bits wide.
+The C.x high nibble can be explicitly cleared before a computed access, constraining that particular path to addresses 000–0FF. This is microcode behavior; the CPU RAM selector itself remains 10 bits wide.
 
 ### Initialization sweep
 
@@ -142,7 +150,7 @@ At [`0355–035B`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253
 
 ## Complete 80-register inventory
 
-All ordinary physical addresses are listed individually. The read/write columns contain **executed instruction addresses from the reported experiments**, consolidated across tests. Initialization writes at 2AF1 are included. A dash means no such access was observed in this workload, not that the firmware never accesses it. These are instruction sites, not complete function boundaries or exhaustive cross-references.
+All ordinary physical addresses are listed individually. The read/write columns contain **executed instruction addresses from the reported experiments**, consolidated across tests. Initialization writes at 2AF1 are included. A dash means no such access was observed in this workload, not that the microcode never accesses it. These are instruction sites, not complete function boundaries or exhaustive cross-references.
 
 Register purpose is **Observed (ROM)** only where explicitly scoped above. “Unknown” means that initialization or incidental access does not establish a functional allocation.
 

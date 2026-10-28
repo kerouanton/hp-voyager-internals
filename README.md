@@ -2,9 +2,9 @@
 
 **An open, low-level technical reference for the original HP Voyager calculators, starting with the HP-15C.**
 
-The project aims to collect and cross-reference memory maps, the NUT architecture, hardware interfaces, firmware entry points, and reverse-engineering notes. It is inspired by the address-oriented reference style of classic home-computer memory maps.
+The project aims to collect and cross-reference memory maps, the NUT architecture, hardware interfaces, microcode entry points, and reverse-engineering notes. It is inspired by the address-oriented reference style of classic home-computer memory maps.
 
-**[Hardware architecture](docs/hp15c/hardware-architecture.md)** · **[Address index](docs/hp15c/reference-index.md)** · **[Visit the website](https://kerouanton.github.io/hp-voyager-internals/)** · **[Documentation](docs/index.md)** · **[Complete memory map](docs/hp15c/memory-map.md)** · **[ROM map](docs/hp15c/rom-map.md)** · **[Instruction set](docs/hp15c/instruction-set.md)** · **[RAM register uses](docs/hp15c/ram-register-map.md)**
+**[Community discoveries](docs/hp15c/community-findings.md)** · **[ROM provenance](docs/firmware/rom-provenance.md)** · **[Hardware architecture](docs/hp15c/hardware-architecture.md)** · **[Address index](docs/hp15c/reference-index.md)** · **[Visit the website](https://kerouanton.github.io/hp-voyager-internals/)** · **[Documentation](docs/index.md)** · **[Complete memory map](docs/hp15c/memory-map.md)** · **[ROM map](docs/hp15c/rom-map.md)** · **[Instruction set](docs/hp15c/instruction-set.md)** · **[RAM register uses](docs/hp15c/ram-register-map.md)**
 
 ## Project authorship and AI assistance
 
@@ -22,4 +22,4 @@ This project is independent and is not affiliated with or endorsed by Eric Smith
 
 Please share corrections, original documentation, trace results, and references via issues or pull requests. Distinguish observed facts from hypotheses; provide ROM addresses or upstream source locations when possible.
 
-**No HP firmware ROM images are redistributed in this repository.** Upstream source code, firmware, and this project's original documentation have separate copyright and licensing considerations.
+**No HP microcode ROM images are redistributed in this repository.** Upstream source code, microcode, and this project's original documentation have separate copyright and licensing considerations.

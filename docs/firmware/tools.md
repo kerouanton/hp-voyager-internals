@@ -1,10 +1,10 @@
 ---
-title: Firmware Tools
+title: Microcode Tools
 ---
 
-# Firmware Tools and Reproduction
+# Microcode Tools and Reproduction
 
-[Home]({{ '/index.html' | relative_url }}) · [Firmware]({{ '/firmware/index.html' | relative_url }})
+[Home]({{ '/index.html' | relative_url }}) · [Microcode]({{ '/firmware/index.html' | relative_url }})
 
 For authorship, provenance, test coverage, and the maintainer's Cygwin validation, see [Disassembler development and validation history]({{ '/firmware/disassembler-history.html' | relative_url }}).
 
@@ -30,7 +30,7 @@ The **linear listing** assumes instruction boundaries sequentially, while **ever
 
 ### Tests
 
-The C regression suite covers 265,216 input cases involving absolute transfers, relative transfers, and decoder states, as documented in the original tool bundle. These test structural decoding, **not the full behavior of the HP-15C firmware**.
+The C regression suite covers 265,216 input cases involving absolute transfers, relative transfers, and decoder states, as documented in the original tool bundle. These test structural decoding, **not the full behavior of the HP-15C microcode**.
 
 The optional Node.js verifier is provided as `verify.cjs`; it checks ROM provenance and generated listing integrity using a locally obtained copy of the original ROM.
 
