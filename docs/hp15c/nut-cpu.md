@@ -4,6 +4,8 @@ title: NUT CPU Architecture
 
 # NUT CPU Architecture — HP-15C
 
+[Address and topic index]({{ '/hp15c/reference-index.html' | relative_url }}) · [Home]({{ '/index.html' | relative_url }})
+
 This page records the CPU state represented by Nonpareil's NUT implementation. It is a guide to interpreting the HP-15C ROM, not a claim that every implementation detail has been verified on physical silicon.
 
 [Home]({{ '/index.html' | relative_url }}) · [Memory map]({{ '/hp15c/memory-map.html' | relative_url }})
