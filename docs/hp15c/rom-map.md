@@ -292,6 +292,12 @@ Sequence indexes are decimal. All code/data associations below are **Observed (R
 
 The diagnostic also shifts/writes LCD patterns and has timeout/failure handling at `1724–172D`. A complete timed operator procedure, including release order, is outside the evidence established here.
 
+### Roll-up/roll-down and benign nonexistent-RAM reads
+
+**Reported (first-hand, external microcode analysis):** Eric Smith found that the original HP-15C `R↓` routine **always reads the hypothetical imaginary X word**, even if complex mode has not allocated it; `R↑` invokes this routine three times. In the initialized real-mode layout, R02 is at physical `0C0`, and the read targets missing address `0BF`. The original hardware returns zero for an unpopulated RAM read and ignores writes to missing RAM; the value is discarded in the real-only path. This was exposed by a strict Nonpareil II memory check. [Source: Eric Smith, 21 February 2024](https://www.hpmuseum.org/forum/thread-21336.html).
+
+**Scope:** this is a cited first-hand external analysis, **not an independently recovered ROM entry-point address or replayed instruction trace** in this project. Do not assign exact roll-routine addresses without tracing the pinned HP-15C ROM. See [RAM allocation context]({{ '/hp15c/ram-register-map.html' | relative_url }}#dynamic-allocation-before-r02) and [community findings]({{ '/hp15c/community-findings.html' | relative_url }}).
+
 ## Unresolved subsystems
 
 | Area | What is known here | What is not established |
