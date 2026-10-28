@@ -6,7 +6,7 @@ title: HP-15C ROM Map
 
 [Address and topic index]({{ '/hp15c/reference-index.html' | relative_url }}) · [Home]({{ '/index.html' | relative_url }})
 
-An address-oriented map of the **original 12,288-word HP-15C ROM**, with explicit evidence and limits. Coverage of the image is complete; identification of firmware functions is not. Unknown regions remain unknown rather than being assigned speculative routine names.
+An address-oriented map of the **original 12,288-word HP-15C ROM**, with explicit evidence and limits. Coverage of the image is complete; identification of microcode functions is not. Unknown regions remain unknown rather than being assigned speculative routine names.
 
 [Memory map]({{ '/hp15c/memory-map.html' | relative_url }}) · [RAM register uses]({{ '/hp15c/ram-register-map.html' | relative_url }}) · [Coverage index](#complete-rom-coverage-index) · [Entry-point map](#address-oriented-entry-point-map) · [Startup](#reset-startup-and-wake) · [Keyboard dispatch](#keycode-indexed-dispatch-table) · [Memory clear](#initialization-and-memory-clearing) · [Diagnostics](#diagnostics-and-self-test) · [Checksums](#rom-checksum-rule-and-results) · [Unknowns](#unresolved-subsystems) · [Sources](#sources-and-validation)
 
@@ -85,7 +85,7 @@ Unless stated otherwise, confidence is **Observed (ROM)**: the operation describ
 
 ## Reset, startup and wake
 
-[Nonpareil reset](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/src/proc_nut.c#L2100-L2136) sets PC = `0000`, carry = 1, normal instruction state, awake = true, P = Q = 0, active pointer P, and bank 0. It clears A/B/C/M/N and S bits. It does **not** perform the firmware's full RAM initialization; `nut_clear_memory()` is a separate emulator operation.
+[Nonpareil reset](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/src/proc_nut.c#L2100-L2136) sets PC = `0000`, carry = 1, normal instruction state, awake = true, P = Q = 0, active pointer P, and bank 0. It clears A/B/C/M/N and S bits. It does **not** perform the microcode's full RAM initialization; `nut_clear_memory()` is a separate emulator operation.
 
 At `0000`, raw word `1CF` encodes a carry-set short branch with displacement `+39`, so the reset path begins `0000 → 0039`. A wake from display-enabled light sleep can enter with carry clear and continue through `0001`; `powoff` has already placed PC at zero. The LCD handler explicitly forces carry to 1 on display-disabled sleep. Sources: [CPU sleep instruction](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/src/proc_nut.c#L1698-L1719), [LCD sleep handler](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/src/voyager_lcd.c#L243-L265).
 
@@ -224,7 +224,7 @@ Setup at [`173D–174D`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab201
 
 At [`174E–1754`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom#L5969-L5975), CXISA reads a 10-bit word w into C.x. The loop adds w to the 12-bit A.x accumulator. If that addition overflows, it adds `C01` to the wrapped result. C.m is then incremented, and the loop continues until its address field equals A.m.
 
-Precisely, for accumulator s and word w, let t = s + w. The next accumulator is `(t & FFF)` if t ≤ `FFF`, otherwise `((t & FFF) + C01) & FFF`. Here `&` is bitwise AND and all constants are hexadecimal. The correction is equivalent to subtracting `3FF` from the unwrapped sum at overflow; retain the actual 12-bit recurrence when reproducing the firmware.
+Precisely, for accumulator s and word w, let t = s + w. The next accumulator is `(t & FFF)` if t ≤ `FFF`, otherwise `((t & FFF) + C01) & FFF`. Here `&` is bitwise AND and all constants are hexadecimal. The correction is equivalent to subtracting `3FF` from the unwrapped sum at overflow; retain the actual 12-bit recurrence when reproducing the microcode.
 
 At `1755`, the code subtracts B.x = `C01`; `1756–1757` require zero and branch to the failure path otherwise.
 
@@ -292,7 +292,7 @@ Sequence indexes are decimal. All code/data associations below are **Observed (R
 
 The diagnostic also shifts/writes LCD patterns and has timeout/failure handling at `1724–172D`. A complete timed operator procedure, including release order, is outside the evidence established here.
 
-### Roll-up/roll-down and benign nonexistent-RAM reads
+## Roll-up/roll-down and benign nonexistent-RAM reads
 
 **Reported (first-hand, external microcode analysis):** Eric Smith found that the original HP-15C `R↓` routine **always reads the hypothetical imaginary X word**, even if complex mode has not allocated it; `R↑` invokes this routine three times. In the initialized real-mode layout, R02 is at physical `0C0`, and the read targets missing address `0BF`. The original hardware returns zero for an unpopulated RAM read and ignores writes to missing RAM; the value is discarded in the real-only path. This was exposed by a strict Nonpareil II memory check. [Source: Eric Smith, 21 February 2024](https://www.hpmuseum.org/forum/thread-21336.html).
 
@@ -329,14 +329,14 @@ Upstream commit: `c347bc1ab20170c253512042f7aac0d952f304ea`. Project snapshot: `
 |---|---|
 | Original ROM identity | Verified Git blob SHA-1 and SHA-256 shown above. |
 | Address coverage | Exactly 12,288 unique 10-bit records in the two declared regions; no invented words in gaps. |
-| Published C decoder | Compiled with C11 and strict warnings; the repository's 265,216 decoder cases passed. This does not establish a firmware control-flow graph. |
+| Published C decoder | Compiled with C11 and strict warnings; the repository's 265,216 decoder cases passed. This does not establish a microcode control-flow graph. |
 | Dispatch data | All 39 keycodes matched to actual ROM words; target construction checked against C rotation, CXISA, stack push and return semantics. |
 | Diagnostic key data | All 40 records at `02DA–0301` matched against configured hardware codes; duplicate ENTER retained. |
 | Clear-loop bounds | Derived from actual call operands, two-nibble decrement and inclusive stop test: 91 attempted addresses. |
 | Checksum loops | Independent whole-image evaluation produced `C01` for both 6,144-word spans. |
 | Full self-test | Not certified. Checksum agreement alone does not validate all diagnostic paths or physical hardware. |
 
-The confidence labels intentionally separate source-defined hardware behavior from firmware interpretation. No routine name, region boundary, or caller relationship was promoted solely because a linear disassembly printed a plausible instruction.
+The confidence labels intentionally separate source-defined hardware behavior from microcode interpretation. No routine name, region boundary, or caller relationship was promoted solely because a linear disassembly printed a plausible instruction.
 
 [Back to top](#hp-15c-rom-map) · [Complete memory map]({{ '/hp15c/memory-map.html' | relative_url }})
 
