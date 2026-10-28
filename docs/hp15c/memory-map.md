@@ -79,6 +79,14 @@ The driver separately creates three special addresses per R2D2 at `index × 0x10
 
 Sources: [chip 0 declarations](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.ncd.tmpl#L24-L36), [chip 1 declarations](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.ncd.tmpl#L174-L185), and [`voyager_r2d2_install()`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/src/voyager_lcd.c#L322-L361). The latter is authoritative for the extra I/O addresses; they are not ordinary `<memory>` declarations.
 
+### Physical absence versus bus behavior
+
+Eric Smith reports that on a **real HP-15C**, a read from physically **nonexistent data RAM** produces a **zero word** (because of the NUT data-line precharge), while a write is **ignored**. This is **Reported (first-hand)** in his [February 2024 roll-up/roll-down microcode investigation](https://www.hpmuseum.org/forum/thread-21336.html), not an independent electrical test by this project.
+
+For example, in normal initialized real mode with user register R02 at `0C0`, the roll-down routine reads the hypothetical imaginary X at `0BF`—a member of the **unmapped** range `01B–0BF` above. No physical register is thereby added. Nonpareil II emulated `0B8–0BF` as read-zero/write-ignore to avoid raising an emulator exception on that legitimate ROM access; these eight modeled placeholders are **not installed RAM**.
+
+See [dynamic RAM allocation notes]({{ '/hp15c/ram-register-map.html' | relative_url }}#dynamic-allocation-before-r02) and [community findings]({{ '/hp15c/community-findings.html' | relative_url }}#reads-from-missing-ram-during-roll-up-and-roll-down).
+
 ### Special-register access behavior
 
 | Address | CPU read | CPU write | Display connection |
