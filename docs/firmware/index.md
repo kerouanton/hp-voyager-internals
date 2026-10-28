@@ -47,7 +47,7 @@ The tools and tests are published under [`tools/hp15c-disassembler/`](https://gi
 | Shared low-level routines | Not mapped | Collect actual callers and register effects |
 | Scientific functions and program interpreter | Not mapped | Identify entry points and reusable algorithms |
 
-A decoded instruction is not necessarily executed microcode code: ROMs may contain tables and embedded constants. Functional labels will be added only with trace or control-flow evidence.
+A decoded ROM word is not necessarily executed as an instruction: ROMs may contain tables and embedded constants. Functional labels will be added only with trace or control-flow evidence.
 
 ## References
 
