@@ -10,6 +10,8 @@ An address-oriented reference for the **original HP-15C**, based on its ROM and 
 
 [ROM map]({{ '/hp15c/rom-map.html' | relative_url }}) · [Address spaces](#address-spaces) · [ROM](#instruction-rom) · [RAM and I/O](#data-ram-and-r2d2-io) · [LCD](#lcd-segment-map) · [Keyboard](#keyboard-interface) · [CPU registers](#cpu-internal-registers) · [Firmware RAM uses](#firmware-assigned-ram-uses) · [Sources](#sources-and-reproducibility)
 
+For a conceptual introduction to these address spaces and their physical owners, see [HP-15C Hardware Architecture: NUT and R2D2]({{ '/hp15c/hardware-architecture.html' | relative_url }}).
+
 ## Scope and evidence
 
 | Evidence class | Meaning in this document |

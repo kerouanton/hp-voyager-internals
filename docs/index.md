@@ -39,6 +39,7 @@ This is an **independent community documentation project**, not affiliated with 
 
 | Reference | What you will find |
 |---|---|
+| [HP-15C hardware architecture]({{ '/hp15c/hardware-architecture.html' | relative_url }}) | What NUT and R2D2 do, how ROM/RAM/keyboard/LCD fit together, and how firmware uses the hardware |
 | [Address and topic index]({{ '/hp15c/reference-index.html' | relative_url }}) | Browse ROM and RAM ranges or jump directly to a firmware subject |
 | [Complete HP-15C memory map]({{ '/hp15c/memory-map.html' | relative_url }}) | Full instruction and data address spaces, peripheral registers, 110 LCD slots, all keycodes, and CPU state |
 | [HP-15C RAM register uses]({{ '/hp15c/ram-register-map.html' | relative_url }}) | Every ordinary RAM register, observed accesses, RPN stack and R0–R9, indirect addressing, open questions |

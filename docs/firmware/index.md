@@ -12,6 +12,8 @@ This section aims to describe the **big picture**: startup and diagnostics, shar
 
 [Address and topic index]({{ '/hp15c/reference-index.html' | relative_url }}) — quick entry points for ROM ranges, memory regions, and diagnostics.
 
+**[Hardware architecture overview]({{ '/hp15c/hardware-architecture.html' | relative_url }})** explains how the NUT processor retrieves firmware instructions from the two R2D2 memory circuits and accesses data memory and the LCD.
+
 ## Address-oriented firmware reference
 
 The [HP-15C ROM Map]({{ '/hp15c/rom-map.html' | relative_url }}) documents all populated ROM ranges, verified dispatch data, startup and initialization sequences, and diagnostic paths. It distinguishes confirmed instruction effects from tentative functional labels. The companion [Complete Memory Map]({{ '/hp15c/memory-map.html' | relative_url }}) covers the full data-register address space, special I/O, LCD wiring, and keyboard interface.

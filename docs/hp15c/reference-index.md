@@ -8,6 +8,10 @@ title: HP-15C Reference Index
 
 This is a **navigation index**, not a new set of hardware claims. Follow the linked pages for source evidence, confidence labels and interpretation limits. All addresses in these tables are **hexadecimal**. ROM addresses refer to 10-bit instruction words; RAM addresses refer to 56-bit data registers, not byte offsets.
 
+## Understand the hardware first
+
+**[HP-15C Hardware Architecture: NUT and R2D2]({{ '/hp15c/hardware-architecture.html' | relative_url }})** explains the three-chip design, internal CPU registers, the two R2D2 memory devices, LCD and keyboard, and the distinction between HP firmware and user programs.
+
 ## ROM address lookup
 
 The 1,024-word ranges below are **navigation bins**, not established firmware module boundaries.
