@@ -18,6 +18,28 @@ Our original-HP-15C address studies use Eric Smith's publicly hosted [Nonpareil 
 
 This project **links** to the upstream image but **does not redistribute** the ROM file or publish a full derived listing. The original HP microcode and Nonpareil's software source have separate rights and provenance.
 
+## Original and modified HP-15C ROM images
+
+An important correction to the history of Nonpareil is documented in [Eric Smith's July 2024 replies about the HP-15C expanded-memory patches](https://www.hpmuseum.org/forum/thread-19406.html). He states that **older Nonpareil releases used an HP-15C ROM image modified by him**, rather than the exact original calculator image. Those historical changes were used in Nonpareil until around **2022**. The [pinned `15c.rom` used by our project](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom) is the **original HP-15C dump**, not that earlier modified version.
+
+### Fingerprint at ROM addresses `13F9–13FD`
+
+All numbers below are **hexadecimal**. Direct inspection of the pinned original image confirms **five zero words** at `13F9–13FD`. In the forum, **Giorgio** reported different words at those addresses in **HP-15C Limited Edition and Collector Edition** ROMs. The comparison is useful for detecting that two ROM variants are **not byte-for-byte identical**, but it does **not** by itself identify every variant or establish complete ROM equivalence.
+
+| ROM address | Original, checked at pinned Nonpareil commit | LE/CE, reported by Giorgio |
+|---|---|---|
+| `13F9` | `000` | `08B` |
+| `13FA` | `000` | `0E5` |
+| `13FB` | `000` | `2D3` |
+| `13FC` | `000` | `2C6` |
+| `13FD` | `000` | `0F5` |
+
+Smith explained that his historical modified image differed in the running display's shifted `r`, identification, and ROM checksum compensation. He also said that he had later identified, with high confidence, the locations HP originally used for checksum adjustment. **That thread does not name the adjustment addresses**. The words above should therefore **not** be labeled HP's original checksum adjustments or assumed to be free ROM slots.
+
+**Rights boundary:** Smith expressly described his older modified ROM as **copyrighted, not open source, and not authorized for use outside Nonpareil**. The original HP ROM has its own separate rights; neither image is redistributed here. We do not provide patches that overwrite either ROM. The old standalone patch instructions on `brouhaha.com` are currently inaccessible and are **not presented as an active source**.
+
+**Interpretation policy:** every instruction address and checksum in this reference is tied to the pinned *original* ROM image. Results from an expanded-memory 15C, Limited Edition, Collector Edition, or old Nonpareil image must not be silently transferred to it. See [community notes on LU and matrix constraints]({{ '/hp15c/community-findings.html' | relative_url }}#expanded-memory-hp-15c-lu-matrix-limit-and-patch-caveats).
+
 ## How the Voyager ROM was extracted
 
 **Evidence:** Eric Smith described a **ROMsucker** apparatus and his earlier partial wiring for Voyager dumps in his [15 May 2024 forum reply about the NUT pinout](https://www.hpmuseum.org/forum/thread-21739.html). His historical HHC 2004 paper, *Microcode-Level Simulation of Hewlett-Packard Calculators* (also circulated as *Microcode-Level Calculator Simulation*), gives additional background; the original personal-site PDF is presently **not a dependable download link**, so we do not link to it.

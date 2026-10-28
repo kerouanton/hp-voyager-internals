@@ -239,6 +239,14 @@ Both results were calculated directly from the actual ROM records, independently
 
 No dedicated “checksum word address” is assigned here. The acceptance criterion applies to each entire region; a word near the end is not automatically a stored checksum merely because it influences the total.
 
+### ROM variant warning: self-test pass is not an identity test
+
+The checksums above belong to **this pinned original HP-15C ROM**, not to an old modified Nonpareil image, an HP-15C Limited Edition, or a Collector Edition. In a [July 2024 discussion of expanded-memory microcode](https://www.hpmuseum.org/forum/thread-19406.html), Eric Smith explicitly distinguished the **original dump now hosted by Nonpareil** from his older modified ROM. He described extra edits made for identification, the running `r` and checksum adjustment.
+
+**Observed (ROM):** addresses [`13F9–13FD`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom#L5116-L5120) are all `000` in the pinned original image. **Reported (Giorgio):** the corresponding words in HP-15C LE and CE ROMs are `08B 0E5 2D3 2C6 0F5`. This is a **ROM-variant fingerprint**, not a complete variant-identification procedure.
+
+A successful self-test checksum **does not prove a ROM image is identical** to the original: compensating edits can maintain a passing checksum. Similarly, a row of zero words is **not** automatically unused ROM available for arbitrary patches, and the five addresses above are **not established as HP's original checksum-adjustment locations**. For provenance and legal scope, see [Original and modified HP-15C ROM images]({{ '/firmware/rom-provenance.html' | relative_url }}#original-and-modified-hp-15c-rom-images).
+
 ## Diagnostic key sequence table
 
 The code at [`1708–1719`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom#L5899-L5916) forms a ROM-read address from `02DA + A.x`, obtains the expected code with CXISA, and compares it to the keyboard latch. Its bound is `028`, i.e. 40 decimal positions. The 40 words are at [`02DA–0301`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom#L733-L772).

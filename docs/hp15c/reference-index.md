@@ -14,7 +14,7 @@ This is a **navigation index**, not a new set of hardware claims. Follow the lin
 
 ## Source-oriented research notes
 
-[Community findings]({{ '/hp15c/community-findings.html' | relative_url }}) indexes HP Museum forum discoveries by hardware revision, missing RAM, dynamic allocation, and NUT peripheral instructions. [ROM extraction and microcode provenance]({{ '/firmware/rom-provenance.html' | relative_url }}) explains how the original image was obtained and which claims are reproducible. Neither page replaces the address-oriented tables below.
+[Community findings]({{ '/hp15c/community-findings.html' | relative_url }}) indexes HP Museum forum discoveries by hardware revision, missing RAM, dynamic allocation, NUT peripheral instructions, and [expanded-memory matrix limits]({{ '/hp15c/community-findings.html' | relative_url }}#expanded-memory-hp-15c-lu-matrix-limit-and-patch-caveats). [ROM extraction and microcode provenance]({{ '/firmware/rom-provenance.html' | relative_url }}) explains how the original image was obtained and which claims are reproducible. Neither page replaces the address-oriented tables below.
 
 ## ROM address lookup
 
