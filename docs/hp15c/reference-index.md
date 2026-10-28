@@ -53,6 +53,7 @@ The 1,024-word ranges below are **navigation bins**, not established firmware mo
 | Keyboard dispatch table | [ROM Map — Keycode-indexed dispatch]({{ '/hp15c/rom-map.html' | relative_url }}#keycode-indexed-dispatch-table) |
 | ROM checksum | [ROM Map — Checksum rule and results]({{ '/hp15c/rom-map.html' | relative_url }}#rom-checksum-rule-and-results) |
 | LCD register/segment mapping | [Memory Map — LCD]({{ '/hp15c/memory-map.html' | relative_url }}#lcd-segment-map) |
+| CPU instructions and opcodes | [NUT Instruction Set]({{ '/hp15c/instruction-set.html' | relative_url }}) |
 | CPU and arithmetic fields | [Memory Map — CPU state]({{ '/hp15c/memory-map.html' | relative_url }}#cpu-internal-registers) |
 | Y/Z/T and storage R0–R9 | [RAM Register Uses — Findings]({{ '/hp15c/ram-register-map.html' | relative_url }}#evidence-supported-functional-findings) |
 | RAM descriptor at `015` | [RAM Register Uses — Descriptor]({{ '/hp15c/ram-register-map.html' | relative_url }}#ram-015-address-descriptor-source) |
