@@ -4,7 +4,7 @@
 
 The project aims to collect and cross-reference memory maps, the NUT architecture, hardware interfaces, microcode entry points, and reverse-engineering notes. It is inspired by the address-oriented reference style of classic home-computer memory maps.
 
-**[Hardware architecture](docs/hp15c/hardware-architecture.md)** · **[Address index](docs/hp15c/reference-index.md)** · **[Visit the website](https://kerouanton.github.io/hp-voyager-internals/)** · **[Documentation](docs/index.md)** · **[Complete memory map](docs/hp15c/memory-map.md)** · **[ROM map](docs/hp15c/rom-map.md)** · **[Instruction set](docs/hp15c/instruction-set.md)** · **[RAM register uses](docs/hp15c/ram-register-map.md)**
+**[Community discoveries](docs/hp15c/community-findings.md)** · **[ROM provenance](docs/firmware/rom-provenance.md)** · **[Hardware architecture](docs/hp15c/hardware-architecture.md)** · **[Address index](docs/hp15c/reference-index.md)** · **[Visit the website](https://kerouanton.github.io/hp-voyager-internals/)** · **[Documentation](docs/index.md)** · **[Complete memory map](docs/hp15c/memory-map.md)** · **[ROM map](docs/hp15c/rom-map.md)** · **[Instruction set](docs/hp15c/instruction-set.md)** · **[RAM register uses](docs/hp15c/ram-register-map.md)**
 
 ## Project authorship and AI assistance
 
