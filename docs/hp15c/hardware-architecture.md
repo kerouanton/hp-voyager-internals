@@ -6,11 +6,11 @@ title: HP-15C Hardware Architecture — NUT and R2D2
 
 [Home]({{ '/index.html' | relative_url }}) · [Reference index]({{ '/hp15c/reference-index.html' | relative_url }}) · [Memory map]({{ '/hp15c/memory-map.html' | relative_url }}) · [ROM map]({{ '/hp15c/rom-map.html' | relative_url }}) · [NUT instruction set]({{ '/hp15c/instruction-set.html' | relative_url }})
 
-**The essential distinction: NUT executes instructions; R2D2 supplies the firmware and data memory and, in the main device, drives the LCD.**
+**The essential distinction: NUT executes microcode; R2D2 supplies the ROM and data memory and, in the main device, drives the LCD.**
 
 The original **HP-15C** belongs to HP's Voyager family of compact calculators. Unlike a contemporary desktop microcomputer, its calculator-specific logic, firmware storage, data registers and display interface are combined into a very small chipset.
 
-This page explains **the modeled original HP-15C architecture**, not later ARM-based HP-15C reissues or a measured electrical schematic. Its primary source is Eric Smith's [Nonpareil HP-15C model](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.ncd.tmpl). In the tables, **Confirmed (configuration)** means declared by that model; **Confirmed (emulation)** describes Nonpareil's implementation; and **Observed (ROM)** means supported by actual firmware words or explicitly scoped execution experiments. The exact chip markings can vary with hardware revision.
+This page explains **the modeled original HP-15C architecture**, not later ARM-based HP-15C reissues or a measured electrical schematic. Its primary source is Eric Smith's [Nonpareil HP-15C model](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.ncd.tmpl). In the tables, **Confirmed (configuration)** means declared by that model; **Confirmed (emulation)** describes Nonpareil's implementation; and **Observed (ROM)** means supported by actual firmware words or explicitly scoped execution experiments. The exact chip markings can vary with hardware revision. The [community hardware-revision notes]({{ '/hp15c/community-findings.html' | relative_url }}#hardware-revisions-three-chip-and-two-chip-hp-15c) document a later **two-chip HP-15C** implementation as well; the three-chip diagram below depicts the **Nonpareil configuration**, not every physical board.
 
 ## The whole machine in one picture
 
@@ -319,6 +319,14 @@ The result of ON + minus is thus **an initialized memory state**, not just a bla
 | Is `0x009` ordinary user RAM? | No: it is a display bitmap I/O register with special read behavior in the emulated hardware. |
 | Does a disassembled ROM word always represent an instruction executed by NUT? | No: ROM tables and literals may occupy addresses that also decode to plausible opcode strings. |
 | Does the CPU's 16-bit PC imply a 64K-word HP-15C ROM? | No: only 12,288 addresses are populated in the documented configuration. |
+
+## Historical chip revisions and partial pinout evidence
+
+Eric Smith's [May 2024 discussion of the 1LQ9 pinout](https://www.hpmuseum.org/forum/thread-21739.html) distinguishes the three-chip HP-15C represented by Nonpareil from a **two-chip original HP-15C** using `1LQ9-0325` (with half the ROM integrated) and `1LH1-0302` (the other half). This is **Reported (first-hand)** hardware-history evidence and does not change the logical ROM addresses shown on this page.
+
+Smith also published **partial notes for the earlier `1LF5` CPU**: in his numbered 44-position package scheme, pins 1 and 2 carry clock phases, pin 37 is `SYNC`, and pin 44 is `ISA`. These notes **must not be applied to `1LQ9` or `1LH1` without independent measurement**. Smith had not verified the `1LH1` pinout against `1LE2`.
+
+The original Voyager ROMs were extracted by **monitoring bus signals during the physical calculator's ROM self-test**, rather than by treating the ROM as a removable EPROM. See [Microcode ROM provenance]({{ '/firmware/rom-provenance.html' | relative_url }}) for the evidence and limits, and [community notes]({{ '/hp15c/community-findings.html' | relative_url }}) for the detailed testimony.
 
 ## Physical hardware versus Nonpareil
 
