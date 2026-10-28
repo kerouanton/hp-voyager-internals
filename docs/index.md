@@ -8,7 +8,7 @@ title: HP Voyager Internals
 
 This project starts with the **HP-15C**, a scientific programmable calculator from the Voyager family. Its purpose is to **collect, organize, cross-reference, and gradually document low-level technical knowledge** that is otherwise scattered across source repositories, manuals, ROM disassemblies, and historical resources.
 
-Inspired by classic computer memory maps such as the [Commodore 64 Memory Map](https://sta.c64.org/cbm64mem.html), this site is intended to be a practical reference: *which addresses exist, what the hardware does, where important firmware routines live, and how the pieces work together.*
+Inspired by classic computer memory maps such as the [Commodore 64 Memory Map](https://sta.c64.org/cbm64mem.html), this site is intended to be a practical reference: *which addresses exist, what the hardware does, where important microcode routines live, and how the pieces work together.*
 
 ## How this site is created
 
@@ -33,35 +33,35 @@ This is an **independent community documentation project**, not affiliated with 
 
 ## Find an address or routine
 
-**[Browse the HP-15C address and topic index]({{ '/hp15c/reference-index.html' | relative_url }})** — ROM ranges, RAM regions, diagnostic routines, display, and firmware tools.
+**[Browse the HP-15C address and topic index]({{ '/hp15c/reference-index.html' | relative_url }})** — ROM ranges, RAM regions, diagnostic routines, display, and microcode tools.
 
 ## Explore the HP-15C
 
 | Reference | What you will find |
 |---|---|
-| [HP-15C hardware architecture]({{ '/hp15c/hardware-architecture.html' | relative_url }}) | What NUT and R2D2 do, how ROM/RAM/keyboard/LCD fit together, and how firmware uses the hardware |
-| [Address and topic index]({{ '/hp15c/reference-index.html' | relative_url }}) | Browse ROM and RAM ranges or jump directly to a firmware subject |
+| [HP-15C hardware architecture]({{ '/hp15c/hardware-architecture.html' | relative_url }}) | What NUT and R2D2 do, how ROM/RAM/keyboard/LCD fit together, and how microcode uses the hardware |
+| [Address and topic index]({{ '/hp15c/reference-index.html' | relative_url }}) | Browse ROM and RAM ranges or jump directly to a microcode subject |
 | [Complete HP-15C memory map]({{ '/hp15c/memory-map.html' | relative_url }}) | Full instruction and data address spaces, peripheral registers, 110 LCD slots, all keycodes, and CPU state |
 | [HP-15C RAM register uses]({{ '/hp15c/ram-register-map.html' | relative_url }}) | Every ordinary RAM register, observed accesses, RPN stack and R0–R9, indirect addressing, open questions |
 | [HP-15C ROM map]({{ '/hp15c/rom-map.html' | relative_url }}) | ROM coverage, entry points, dispatch tables, boot, RAM clear, and diagnostics |
 | [NUT instruction set]({{ '/hp15c/instruction-set.html' | relative_url }}) | 10-bit opcode encoding, arithmetic families, control flow, and register effects |
 | [NUT CPU architecture]({{ '/hp15c/nut-cpu.html' | relative_url }}) | Registers, instruction format, addressing, and timing |
-| [Firmware and reverse engineering]({{ '/firmware/index.html' | relative_url }}) | ROM analysis, startup, diagnostics, and research notes |
-| [Firmware tools]({{ '/firmware/tools.html' | relative_url }}) | C disassembler, tests, and reproduction instructions |
+| [Microcode and reverse engineering]({{ '/firmware/index.html' | relative_url }}) | ROM analysis, startup, diagnostics, and research notes |
+| [Microcode tools]({{ '/firmware/tools.html' | relative_url }}) | C disassembler, tests, and reproduction instructions |
 | [Disassembler development history]({{ '/firmware/disassembler-history.html' | relative_url }}) | Work, tests, Cygwin validation, and limitations |
 | [Sources and methodology]({{ '/sources.html' | relative_url }}) | Primary resources, credit, provenance, and evidence labels |
 
 ## What we hope to document
 
 - **Hardware:** NUT CPU, ROM and RAM maps, registers, display, keyboard, and peripheral interfaces.
-- **Firmware organization:** startup, keyboard handling, shared services, mathematical routines, and the user-program interpreter.
+- **Microcode organization:** startup, keyboard handling, shared services, mathematical routines, and the user-program interpreter.
 - **Diagnostics:** behavior of startup key combinations, including the memory-clear and self-test paths.
 - **Algorithms and design choices:** how HP implemented advanced scientific functions within a very small ROM.
 
-This is a **work in progress**, not a finished or authoritative hardware manual. Firmware labels and inferred purposes are explicitly marked *Tentative* until confirmed by machine-code evidence, control-flow analysis, or execution traces.
+This is a **work in progress**, not a finished or authoritative hardware manual. Microcode labels and inferred purposes are explicitly marked *Tentative* until confirmed by machine-code evidence, control-flow analysis, or execution traces.
 
 ## About the ROM and licensing
 
-The original HP firmware is **not redistributed by this site**. Links to upstream files are supplied for research and provenance; their copyright status is distinct from the licenses of the Nonpareil source code and of original documentation written here.
+The original HP microcode is **not redistributed by this site**. Links to upstream files are supplied for research and provenance; their copyright status is distinct from the licenses of the Nonpareil source code and of original documentation written here.
 
 Corrections and contributions are welcome through the [GitHub repository](https://github.com/kerouanton/hp-voyager-internals).
