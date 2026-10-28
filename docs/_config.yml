@@ -1,0 +1,4 @@
+title: HP Voyager Internals
+description: NUT CPU, memory maps and firmware exploration of the original HP Voyager calculators
+theme: jekyll-theme-cayman
+markdown: kramdown
