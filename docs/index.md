@@ -35,7 +35,8 @@ This is an **independent community documentation project**, not affiliated with 
 
 | Reference | What you will find |
 |---|---|
-| [HP-15C memory map]({{ '/hp15c/memory-map.html' | relative_url }}) | Instruction ROM, data RAM, device registers, keyboard codes, and display mapping |
+| [Complete HP-15C memory map]({{ '/hp15c/memory-map.html' | relative_url }}) | Full instruction and data address spaces, peripheral registers, 110 LCD slots, all keycodes, and CPU state |
+| [HP-15C ROM map]({{ '/hp15c/rom-map.html' | relative_url }}) | ROM coverage, entry points, dispatch tables, boot, RAM clear, and diagnostics |
 | [NUT CPU architecture]({{ '/hp15c/nut-cpu.html' | relative_url }}) | Registers, instruction format, addressing, and timing |
 | [Firmware and reverse engineering]({{ '/firmware/index.html' | relative_url }}) | ROM analysis, startup, diagnostics, and research notes |
 | [Firmware tools]({{ '/firmware/tools.html' | relative_url }}) | C disassembler, tests, and reproduction instructions |
