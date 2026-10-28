@@ -4,7 +4,7 @@ title: HP-15C Disassembler — Development and Validation History
 
 # HP-15C Disassembler: Development and Validation
 
-[Home]({{ '/index.html' | relative_url }}) · [Firmware]({{ '/firmware/index.html' | relative_url }}) · [Tools]({{ '/firmware/tools.html' | relative_url }}) · [Source code](https://github.com/kerouanton/hp-voyager-internals/blob/main/tools/hp15c-disassembler/README.md)
+[Home]({{ '/index.html' | relative_url }}) · [Microcode]({{ '/firmware/index.html' | relative_url }}) · [Tools]({{ '/firmware/tools.html' | relative_url }}) · [Source code](https://github.com/kerouanton/hp-voyager-internals/blob/main/tools/hp15c-disassembler/README.md)
 
 This page records **who contributed what**, where the code originated, what was tested, and the limits of the results.
 
@@ -52,7 +52,7 @@ The source files and tests are hosted under [`tools/hp15c-disassembler/`](https:
 | 1,024 first-word encodings × 2 decoder states | 2,048 |
 | **Total** | **265,216** |
 
-The test cases check structure, branch destinations, instruction lengths, and state handling. They **do not independently prove the semantic correctness of every mnemonic**, establish executable code/data boundaries, or validate numerical algorithms in the HP-15C firmware.
+The test cases check structure, branch destinations, instruction lengths, and state handling. They **do not independently prove the semantic correctness of every mnemonic**, establish executable code/data boundaries, or validate numerical algorithms in the HP-15C microcode.
 
 ### Cygwin confirmation
 
@@ -87,6 +87,6 @@ Neither output demonstrates that all decoded words are executed, and **a disasse
 
 ## Rights and acknowledgements
 
-The adapted C decoder preserves Eric Smith's `GPL-3.0-only` copyright/license notice and is distributed with the [GPL text](../../tools/hp15c-disassembler/COPYING). Its license **does not grant rights to the original HP firmware**. More historical licensing context appears in [`NONPAREIL-COPYING.txt`](../../tools/hp15c-disassembler/NONPAREIL-COPYING.txt).
+The adapted C decoder preserves Eric Smith's `GPL-3.0-only` copyright/license notice and is distributed with the [GPL text](../../tools/hp15c-disassembler/COPYING). Its license **does not grant rights to the original HP microcode**. More historical licensing context appears in [`NONPAREIL-COPYING.txt`](../../tools/hp15c-disassembler/NONPAREIL-COPYING.txt).
 
-[Back to Firmware]({{ '/firmware/index.html' | relative_url }})
+[Back to Microcode]({{ '/firmware/index.html' | relative_url }})
