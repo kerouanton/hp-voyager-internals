@@ -4,6 +4,8 @@ title: HP-15C RAM Register Uses
 
 # HP-15C RAM Register Uses
 
+[Address and topic index]({{ '/hp15c/reference-index.html' | relative_url }}) · [Home]({{ '/index.html' | relative_url }})
+
 Functional reference for the original HP-15C's **80 ordinary 56-bit RAM registers**. This document combines the actual ROM, Nonpareil instruction semantics, and controlled execution experiments. The address inventory is complete; functional identification remains partial.
 
 [Home]({{ '/index.html' | relative_url }}) · [Complete memory map]({{ '/hp15c/memory-map.html' | relative_url }}) · [ROM map]({{ '/hp15c/rom-map.html' | relative_url }}) · [Method](#method-and-confidence) · [Access semantics](#how-the-rom-addresses-ram) · [Functional findings](#evidence-supported-functional-findings) · [Indirect addressing](#indirect-address-computation) · [All 80 registers](#complete-80-register-inventory) · [Unknowns](#unknown-allocations) · [Sources](#sources)

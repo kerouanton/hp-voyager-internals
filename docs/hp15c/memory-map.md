@@ -4,6 +4,8 @@ title: HP-15C Complete Memory Map
 
 # HP-15C Complete Memory Map
 
+[Address and topic index]({{ '/hp15c/reference-index.html' | relative_url }}) · [Home]({{ '/index.html' | relative_url }})
+
 An address-oriented reference for the **original HP-15C**, based on its ROM and Eric Smith's Nonpareil implementation. Hardware resources, CPU state, and firmware allocations are documented separately.
 
 [ROM map]({{ '/hp15c/rom-map.html' | relative_url }}) · [Address spaces](#address-spaces) · [ROM](#instruction-rom) · [RAM and I/O](#data-ram-and-r2d2-io) · [LCD](#lcd-segment-map) · [Keyboard](#keyboard-interface) · [CPU registers](#cpu-internal-registers) · [Firmware RAM uses](#firmware-assigned-ram-uses) · [Sources](#sources-and-reproducibility)

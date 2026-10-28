@@ -31,10 +31,15 @@ The goal here is **not to replace Nonpareil** or claim its original discoveries.
 
 This is an **independent community documentation project**, not affiliated with or endorsed by Eric Smith, HP, or the Nonpareil project. See [Sources, credits, and methodology]({{ '/sources.html' | relative_url }}).
 
+## Find an address or routine
+
+**[Browse the HP-15C address and topic index]({{ '/hp15c/reference-index.html' | relative_url }})** — ROM ranges, RAM regions, diagnostic routines, display, and firmware tools.
+
 ## Explore the HP-15C
 
 | Reference | What you will find |
 |---|---|
+| [Address and topic index]({{ '/hp15c/reference-index.html' | relative_url }}) | Browse ROM and RAM ranges or jump directly to a firmware subject |
 | [Complete HP-15C memory map]({{ '/hp15c/memory-map.html' | relative_url }}) | Full instruction and data address spaces, peripheral registers, 110 LCD slots, all keycodes, and CPU state |
 | [HP-15C RAM register uses]({{ '/hp15c/ram-register-map.html' | relative_url }}) | Every ordinary RAM register, observed accesses, RPN stack and R0–R9, indirect addressing, open questions |
 | [HP-15C ROM map]({{ '/hp15c/rom-map.html' | relative_url }}) | ROM coverage, entry points, dispatch tables, boot, RAM clear, and diagnostics |
