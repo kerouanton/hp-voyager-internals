@@ -28,6 +28,8 @@ The pinned [implementation of flag operations](https://github.com/brouhaha/nonpa
 
 **Key subtlety:** ST has **14** status bits, but the bulk C↔ST operations above operate on **only eight**. A subroutine can therefore save S0–S7 into C or another storage location, use some of them as scratch bits, and restore them before returning. That does **not** imply that S8–S13 are unused or unaffected by their individual flag instructions.
 
+For historical context, [Ken Emery's *HP-41 MCODE For Beginners* (1985)](https://literature.hpcalc.org/items/1605) covers MCode for the HP-41 family, which also uses the NUT. Its **HP-41 operating-system conventions and status-bit interpretations must not be treated as HP-15C facts**. The precise S0–S13 and C↔ST statements above are checked against pinned Nonpareil V1, not assumed from the book.
+
 ## Identified HP-15C microcode contexts
 
 These are **local observations in the pinned original ROM**, not declarations that a flag has the same meaning during every function.
