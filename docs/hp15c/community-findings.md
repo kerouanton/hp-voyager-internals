@@ -72,6 +72,42 @@ These discussions help interpret our [NUT instruction reference]({{ '/hp15c/inst
 
 The evolving forum spreadsheet covers **multiple NUT calculator/peripheral environments**, especially the HP-41. An HP-41 opcode or peripheral behavior is **not automatically** a verified HP-15C R2D2 operation. We do not reproduce or redistribute the author's spreadsheet.
 
+## Expanded-memory HP-15C: LU matrix limit and patch caveats
+
+**Source:** [“HP-15C expanded memory firmware: problems with matrix larger than 8x8”](https://www.hpmuseum.org/forum/thread-19406.html), Eric Smith and J-F Garnier, **11–16 January 2023**; Giorgio and Smith, **3–8 July 2024**. The thread calls this *firmware*; this site generally uses *microcode* for native NUT ROM words.
+
+**Reported (first-hand / attributed historical analysis), not a claim about added RAM in the stock machine:**
+
+- Expanded-memory HP-15C microcode patches began around **2005**. Smith credits **Hrast Programmer** and **J-F Garnier** for additional corrections; Garnier shared a version offering **192 user-memory registers plus R0, R1, and I**, used in simulators and some later hardware platforms. **The stock HP-15C does not gain memory through a ROM edit alone**.
+- Large matrices can be **stored and manipulated** in the expanded version; exceeding 8×8 is **not** a general matrix allocation limit. The problem concerns operations dependent on **LU decomposition**, notably **matrix division, inverse, or determinant** of square matrices with order **greater than 8**, which may yield wrong results or hang.
+- Smith attributes the problem to **J. Fossy Weinzinger's analysis** (as quoted in the Swissmicros Voyager User Manual): the microcode encodes row interchanges using **three spare bits in matrix diagonal elements**. Three bits cannot represent the necessary larger permutation offsets. Smith cautioned that other order-9-and-above LU defects might also exist; he had **not** implemented a general LU fix.
+- Smith proposed a **guard patch** to generate **Error 11** for affected square matrices larger than order 8, instead of running an unsafe operation. He announced a patch on **16 January 2023**. This **rejects** unsupported operations, **not** a correction that makes large-matrix LU valid. Its former `brouhaha.com` page is unavailable, so **no working patch download is claimed**.
+- Garnier separately reported limitations in a 192-register version: at most **99 storage registers** allocated at a time and at most **99 matrix elements per row or column** (both Error 10); display problems with program steps past **999** and with the `MEM` readout. These are **version-specific reports**, not properties established for the stock 15C.
+
+**Practical research consequence:** do not extrapolate the stock [physical RAM map]({{ '/hp15c/memory-map.html' | relative_url }}) or [RAM `015` allocator hypotheses]({{ '/hp15c/ram-register-map.html' | relative_url }}#ram-015-address-descriptor-source) to extended versions without tracking their differing memory configuration and ROM changes. The original NUT instruction stream, modern calculator variants, and third-party patches must be treated as distinct artifacts.
+
+**Open work:** identify the LU pivot/row-interchange routine in the **original** image and confirm the three-bit storage mechanism with a trace. No such original-ROM address or independent LU trace is established by this forum account.
+
+## Stock versus modified ROM provenance: a five-word fingerprint
+
+**Source:** same [forum thread, Giorgio (3 and 6 July 2024) and Eric Smith (5 and 8 July 2024)](https://www.hpmuseum.org/forum/thread-19406.html).
+
+Smith warned that earlier Nonpareil distributions (until approximately **2022**) contained **his modified HP-15C ROM**, **not** the unmodified original image now in the [Nonpareil GitHub repository](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom). He explicitly described his modified ROM as copyrighted, non-open-source, and not authorized for redistribution outside Nonpareil. **The fact that a modified calculator ROM is publicly obtainable does not grant redistribution rights.**
+
+A useful identifying discrepancy was reported by Giorgio, who found the following words in HP-15C **Limited Edition** and **Collector Edition** ROMs. The original column below was **independently checked against the pinned Nonpareil original ROM**; the LE/CE column is **Giorgio's reported comparison**, not independently dumped by this project.
+
+| Hex ROM address | Original HP-15C (Observed ROM) | LE/CE (reported by Giorgio) |
+|---|---|---|
+| `13F9` | `000` | `08B` |
+| `13FA` | `000` | `0E5` |
+| `13FB` | `000` | `2D3` |
+| `13FC` | `000` | `2C6` |
+| `13FD` | `000` | `0F5` |
+
+Smith said his old changes included a shifted display `r` in the running annunciation, identification changes, and checksum compensation; in July 2024 he reported having since identified HP's own original checksum-adjustment words with **high confidence**. He did **not** identify those addresses in this thread. **Do not confuse this five-word comparison with proof that these are HP's checksum-adjustment locations**, nor assume that a zero ROM word is necessarily an unused location safe to overwrite.
+
+**Research policy:** all absolute ROM addresses in this project refer to the **pinned original HP-15C image**, unless a variant is named explicitly. The [microcode ROM provenance page]({{ '/firmware/rom-provenance.html' | relative_url }}#original-and-modified-hp-15c-rom-images) records this caveat alongside the 2004 extraction story.
+
 ## Nonpareil I, Nonpareil II, and preservation
 
 **Sources:** [“Nonpareil status”, Eric Smith, 2022–2025](https://www.hpmuseum.org/forum/thread-18940.html); [“Nonpareil II status and plans”, 2024–2025](https://www.hpmuseum.org/forum/thread-21213.html); [“16C microcode patch for expanded memory”, September 2026 follow-up](https://www.hpmuseum.org/forum/thread-23279.html).
