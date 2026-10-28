@@ -6,7 +6,7 @@ title: NUT CPU Architecture
 
 This page records the CPU state represented by Nonpareil's NUT implementation. It is a guide to interpreting the HP-15C ROM, not a claim that every implementation detail has been verified on physical silicon.
 
-[Home](../index.md) · [Memory map](memory-map.md)
+[Home]({{ '/index.html' | relative_url }}) · [Memory map]({{ '/hp15c/memory-map.html' | relative_url }})
 
 ## Registers
 
@@ -47,7 +47,7 @@ A NUT instruction list needs to distinguish the selected-peripheral protocol sta
 - Instruction ROM has word addresses and 10-bit words.
 - Data RAM contains 14-nibble registers, not bytes.
 - The HP-15C model declares ROM ranges `0000–17FF` and `2000–37FF`.
-- The data-memory map is described in the [HP-15C memory map](memory-map.md).
+- The data-memory map is described in the [HP-15C memory map]({{ '/hp15c/memory-map.html' | relative_url }}).
 
 ## Timing
 
@@ -60,4 +60,4 @@ The HP-15C model declares an **LC oscillator frequency of 215,000 Hz** in `15c.n
 - Effects of peripheral selection and display control.
 - Real hardware differences from the emulator.
 
-[Back to index](../index.md)
+[Back to index]({{ '/index.html' | relative_url }})

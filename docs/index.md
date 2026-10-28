@@ -14,7 +14,7 @@ Inspired by classic computer memory maps such as the [Commodore 64 Memory Map](h
 
 The documentation is prepared in collaboration with **OpenAI ChatGPT in manual ("agentless") mode**, under the direction and editorial review of the project maintainer. ChatGPT assists with source inspection, technical analysis, writing, and organization; the maintainer decides what to investigate and publish.
 
-The HP-15C standalone disassembler and tests were developed separately using **ChatGPT Work**, then compiled and validated under **Cygwin** by the maintainer. The underlying NUT decoder derives from Eric Smith's Nonpareil. See [credits and provenance](sources.md) and the [disassembler development history](firmware/disassembler-history.md).
+The HP-15C standalone disassembler and tests were developed separately using **ChatGPT Work**, then compiled and validated under **Cygwin** by the maintainer. The underlying NUT decoder derives from Eric Smith's Nonpareil. See [credits and provenance]({{ '/sources.html' | relative_url }}) and the [disassembler development history]({{ '/firmware/disassembler-history.html' | relative_url }}).
 
 ## A project built on Eric Smith's work
 
@@ -29,18 +29,18 @@ Nonpareil provides the foundation for much of the initial HP-15C research:
 
 The goal here is **not to replace Nonpareil** or claim its original discoveries. It is to make technical information easier to find, understand, verify, and extend, always with attribution to the original authors.
 
-This is an **independent community documentation project**, not affiliated with or endorsed by Eric Smith, HP, or the Nonpareil project. See [Sources, credits, and methodology](sources.md).
+This is an **independent community documentation project**, not affiliated with or endorsed by Eric Smith, HP, or the Nonpareil project. See [Sources, credits, and methodology]({{ '/sources.html' | relative_url }}).
 
 ## Explore the HP-15C
 
 | Reference | What you will find |
 |---|---|
-| [HP-15C memory map](hp15c/memory-map.md) | Instruction ROM, data RAM, device registers, keyboard codes, and display mapping |
-| [NUT CPU architecture](hp15c/nut-cpu.md) | Registers, instruction format, addressing, and timing |
-| [Firmware and reverse engineering](firmware/index.md) | ROM analysis, startup, diagnostics, and research notes |
-| [Firmware tools](firmware/tools.md) | C disassembler, tests, and reproduction instructions |
-| [Disassembler development history](firmware/disassembler-history.md) | Work, tests, Cygwin validation, and limitations |
-| [Sources and methodology](sources.md) | Primary resources, credit, provenance, and evidence labels |
+| [HP-15C memory map]({{ '/hp15c/memory-map.html' | relative_url }}) | Instruction ROM, data RAM, device registers, keyboard codes, and display mapping |
+| [NUT CPU architecture]({{ '/hp15c/nut-cpu.html' | relative_url }}) | Registers, instruction format, addressing, and timing |
+| [Firmware and reverse engineering]({{ '/firmware/index.html' | relative_url }}) | ROM analysis, startup, diagnostics, and research notes |
+| [Firmware tools]({{ '/firmware/tools.html' | relative_url }}) | C disassembler, tests, and reproduction instructions |
+| [Disassembler development history]({{ '/firmware/disassembler-history.html' | relative_url }}) | Work, tests, Cygwin validation, and limitations |
+| [Sources and methodology]({{ '/sources.html' | relative_url }}) | Primary resources, credit, provenance, and evidence labels |
 
 ## What we hope to document
 

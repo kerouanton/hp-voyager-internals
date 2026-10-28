@@ -27,7 +27,7 @@ This is an independent documentation effort. It is not affiliated with or endors
 
 AI assistance is part of the provenance, not evidence of correctness: claims must still be checked against original sources and traces.
 
-See the [disassembler development and validation history](firmware/disassembler-history.md).
+See the [disassembler development and validation history]({{ '/firmware/disassembler-history.html' | relative_url }}).
 
 ## Primary technical source: Nonpareil
 
