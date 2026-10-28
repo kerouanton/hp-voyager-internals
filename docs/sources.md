@@ -2,7 +2,17 @@
 title: Sources and Evidence
 ---
 
-# Sources and Evidence Policy
+# Sources, Credits, and Evidence Policy
+
+## Acknowledgement: Eric Smith and Nonpareil
+
+The first HP-15C pages rely heavily on the pioneering work of **Eric Smith**, creator of **Nonpareil**. His emulator and machine definitions provide the essential foundation for understanding the NUT CPU, memory organization, keyboard, and display.
+
+The HP-15C ROM dump referred to here is the file [`ncd/15c/15c.rom`](https://github.com/brouhaha/nonpareil/blob/main/ncd/15c/15c.rom) from the Nonpareil repository (the file header records an extraction date of 2004-01-25). This project **links to that upstream dump but does not rehost it**.
+
+Nonpareil's software authorship and the authorship or rights in HP's original firmware are separate matters. The availability of a ROM dump in a public source repository must not be interpreted as an unrestricted redistribution license.
+
+This is an independent documentation effort. It is not affiliated with or endorsed by Eric Smith, Nonpareil, or HP.
 
 ## Primary technical source: Nonpareil
 
