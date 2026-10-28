@@ -55,6 +55,7 @@ For a source claim taken from the forum we add **Reported (first-hand)** rather 
 | Confirmed (configuration) | Explicitly present in the machine description |
 | Confirmed (emulation) | Behavior implemented in Nonpareil source |
 | Observed (ROM) | Instruction words or disassembly support the claim |
+| Reported (first-hand) | Named researcher describes their own hardware, code or reverse-engineering observations in a dated source; not independently reproduced here |
 | Tentative | Functional interpretation; trace or independent evidence pending |
 
 The categories are **about evidence, not certainty that physical HP silicon operates identically to the emulator**.
