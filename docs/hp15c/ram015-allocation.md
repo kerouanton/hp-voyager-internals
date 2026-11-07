@@ -135,7 +135,25 @@ The same interpreter entered program mode via `g P/R`, entered one or two numeri
 | Enter key `1` in program mode | `000000000001FF` | `27B5`, `336B` |
 | Enter keys `1`, then `2` in program mode | `000000000002FF` | `27B5`, `336B` |
 
-**Interpretation and limits:** this is direct evidence that physical RAM `016` is updated by program editing, and that the entry-state value read by the allocator is not a fixed constant. The low-byte `FF` in the two program-entry cases is *consistent with* a changed allocation limit, and the preceding nibble changes with the number of entered instructions. **Neither a universal limit formula nor the encoding of program steps can be concluded from just two examples.** Full-program insertion/deletion, packing into 56-bit words, interaction with matrix allocation, memory-full behavior, and comparison with the original Nonpareil harness remain open.
+**Combined program/matrix tests (same independent interpreter, separately initialized scenarios):**
+
+| Key sequence after ON/backspace | RAM `015` after | RAM `016` after | Allocator entry observed |
+|---|---|---|---|
+| Program mode (`g P/R`), key `1`, exit; `1 ENTER 1 f DIM D` | `C0D2D2D2D2D3D3` | `000000000001FF` | M[0]=`D`, B.x=`001`, RAM `016`=`000000000001FF` |
+| Program mode, keys `1`,`2`, exit; `2 ENTER 2 f DIM E` | `C0D2D2D2D2D2D6` | `000000000002FF` | M[0]=`E`, B.x=`004`, RAM `016`=`000000000002FF` |
+| `1 ENTER 1 f DIM D`; program mode, key `1`, exit | `C0D2D2D2D2D3D3` | `000000000001FF` | D allocation before the program edit |
+
+**Capacity-path probes (separately initialized):**
+
+| Dimension command | B.x at `2A9C` | RAM `015` at sleep | Observed result |
+|---|---|---|---|
+| `6 ENTER 7 f DIM E` (42 elements) | `02A` | `C0D2D2D2D2D2FC` | Descriptor written at `2ABE` |
+| `7 ENTER 7 f DIM E` (49 elements) | `031` | `C0D2D2D2D2D2D2` | No descriptor write at `2ABE` |
+| One program instruction, then `6 ENTER 7 f DIM E` | `02A` | `C0D2D2D2D2D2FC` | Descriptor written; RAM `016`=`000000000001FF` |
+
+These results support the ROM capacity comparison, and show that program edits can change RAM `016` while a matrix allocation still succeeds. They **do not determine the exact maximum admissible allocation**: 42 accepted and 49 rejected provide only a coarse bracket. The denial's exact user-visible display response was not independently validated.
+
+**Interpretation and limits:** this is direct evidence that physical RAM `016` is updated by program editing, and that the entry-state value read by the allocator is not a fixed constant. The low-byte `FF` in the two program-entry cases is *consistent with* a changed allocation limit, and the preceding nibble changes with the number of entered instructions. **Neither a universal limit formula nor the encoding of program steps can be concluded from just two examples.** Multi-word program packing, program step insertion/deletion, exact memory-full boundary, user-visible errors, and comparison with the original Nonpareil harness remain open; basic mixed matrix/program allocation and one 42-element acceptance versus 49-element rejection have now been exercised.
 
 ### Proven relative address computation: `2FC9–2FDB`
 
@@ -184,7 +202,7 @@ The local Work experiments observed descriptor changes during attempted SOLVE/IN
 
 ## Research next steps
 
-**Highest priority:** independently reproduce these D/E and program-editing observations using the earlier, separately delivered Nonpareil V1 harness, then extend the matrix/program experiments to mixed allocations, program step insertion/deletion and boundary conditions. Record RAM `015`, RAM `016`, M[0], B.x, selected RAM page, arithmetic mode and carry before `2A9C`; check descriptor writes and memory-full branches. The current independent NUT interpreter is a second implementation but has not been audited for full Nonpareil/physical-chip fidelity. Keep program packing and SOLVE/INTEGRATE as separate, independently validated studies.
+**Highest priority:** independently reproduce these D/E and program-editing observations using the earlier, separately delivered Nonpareil V1 harness, then extend the matrix/program experiments to exact `0FF`/`100` admission boundaries with and without program steps, multi-word program packing, and program step insertion/deletion. Record RAM `015`, RAM `016`, M[0], B.x, selected RAM page, arithmetic mode and carry before `2A9C`; check descriptor writes and memory-full branches. The current independent NUT interpreter is a second implementation but has not been audited for full Nonpareil/physical-chip fidelity. Keep program packing and SOLVE/INTEGRATE as separate, independently validated studies.
 
 **Reproduction and licensing note:** the original 19-scenario Work archive includes adapted Nonpareil instruction code, tests and compressed traces, but is **not checked into this GitHub repository**. Its source files carry a mixture of GPL-2.0-only and GPL-3.0-only notices which require redistribution review. This page presents limited observations and independently checked ROM-address references, not a new combined license for that research harness.
 
