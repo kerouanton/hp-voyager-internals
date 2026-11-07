@@ -67,9 +67,9 @@ Shared accesses to `015` also occur through generic address selection (`2958`) a
 
 **Verified (ROM and pinned NUT instruction semantics), conditional on the selected RAM page being `010`:** `2A9C` (`c=reg 5`) reads `015`, `2A9F` copies it into A, and `2AA0` (`c=reg 6`) reads `016`. After the second read, `2AA3` adds B.x to A.x, `2AA4` exchanges A.x and C.x, and `2AA5–2AA6` conditionally branches to `2A79` if A.x is less than C.x. These operations provide an admission test **before** the `015` write at `2ABE`.
 
-The conditional helper [`0BF2–0BF6`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom#L3061-L3065) executes `c=0 xs`, `? c#0 x`, `?c rtn`, `c=c+1 x`, `rtn`. It clears C[2], and **normalizes a zero low byte `00` to `001`**, not `100`. The helper is called after both the `015` and `016` reads. A previous informal inference that a zero `016` implied an `0x100` limit was therefore wrong.
+The conditional helper [`0BF2–0BF6`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom#L3061-L3065) executes `c=0 xs`, `? c#0 x`, `?c rtn`, `c=c+1 xs`, `rtn`. It first clears C[2] and tests C.x. If the low byte is zero, `0BF5` increments **nibble 2 alone** (the `xs` field), and therefore **normalizes a zero low byte `00` to `100`**, not `001`. The helper is called after both the `015` and `016` reads. A previous informal correction claiming `001` was wrong; the original `100` interpretation has been verified against the opcode field bits and an actual ROM keyboard-path run.
 
-For the investigated hex-mode path, define `normalize(v) = ((v & 0x0FF) == 0 ? 0x001 : (v & 0x0FF))`. With B.x as a three-nibble signed/modular correction, the admission comparison is:
+For the investigated hex-mode path, define `normalize(v) = ((v & 0x0FF) == 0 ? 0x100 : (v & 0x0FF))`. With B.x as a three-nibble signed/modular correction, the admission comparison is:
 
 ```text
 candidate = (normalize(B6) + B.x) mod 0x1000
@@ -80,7 +80,7 @@ otherwise: continue toward descriptor update
 
 The low-byte normalization is exact for this helper; the expression assumes the selected RAM page is `010`, B6 is the low byte of the descriptor, the checked operands have the stated provenance, and arithmetic is hexadecimal. The alternate branch's full user-interface meaning is not yet known. **This is not a universal 8-bit capacity rule.**
 
-**Synthetic boundary illustration (not a measured HP-15C default):** with B6=`D2`, RAM `016` low byte=`FF`, and B.x=`02D`, the candidate is `0FF` and the comparison permits the update. For B.x=`02E`, the candidate is `100` and it branches to `2A79`. If RAM `016` instead contains zero, normalization yields `001`, not `100`, and either positive request branches away. The real RAM `016` values, program-memory effects, and the meaning of all its other fields are still unknown.
+**Synthetic boundary illustration (not a measured HP-15C default):** with B6=`D2`, RAM `016` low byte=`FF`, and B.x=`02D`, the candidate is `0FF` and the comparison permits the update. For B.x=`02E`, the candidate is `100` and it branches to `2A79`. If RAM `016` instead contains zero, normalization yields `100`: a correction of `02E` is admitted and `02F` is rejected in this synthetic boundary calculation. The `DIM D` keyboard-path experiment entered with RAM `016` equal to zero and successfully allocated one element. The meaning of the other fields of RAM `016`, particularly across program-memory changes, remains unknown.
 
 ### The two-nibble cumulative update loop: `2AA8–2ABE`
 
@@ -108,7 +108,7 @@ The counter is initialized by an increment at `2AB6` *before* the first field ad
 | `D` | 2 | B6–B5 (prediction for matrix D) |
 | `E` | 1 | B6 (prediction for matrix E) |
 
-An independent arithmetic cross-check using **synthetic** inputs and RAM `016`=`FF` recovers the published matrix A/B/C and complex-mode descriptor transitions. It also predicts `C0D2D2D2D2D3D3` for D 1×1 and `C0D2D2D2D2D2D3` for E 1×1. **This is not an executed `DIM D`/`DIM E` key-sequence trace**; the full Nonpareil research harness and its unpublished archive were not replayed in this follow-up.
+An independent arithmetic cross-check using **synthetic** inputs recovers the published matrix A/B/C and complex-mode descriptor transitions. A separate, newly built NUT interpreter has now executed the **actual `1 ENTER 1 f DIM D` key sequence** against the original ROM: at `2A9C`, RAM `015`=`C0D2D2D2D2D2D2`, RAM `016`=`00000000000000`, M[0]=`D`, B.x=`001`, RAM selector=`015`, arithmetic mode=hexadecimal, and previous carry=0. The sequence wrote `C0D2D2D2D2D3D3` at `2ABE`. This is independent ROM-level execution **but not** a replay with the full Nonpareil research harness or physical hardware. The equivalent end-to-end `DIM E` and program-memory tests remain to be run.
 
 These results establish the loop's conditional arithmetic mechanism. They do **not** exhaustively establish every ROM caller, actual RAM `016` values, error handling, the allocator's overall memory capacity, or program-storage behavior.
 
@@ -159,7 +159,7 @@ The local Work experiments observed descriptor changes during attempted SOLVE/IN
 
 ## Research next steps
 
-**Highest priority:** replay real `DIM D`, `DIM E`, and program-memory changes in the full instrumented emulator, recording RAM `015`, RAM `016`, M[0], B.x, selected RAM page, arithmetic mode and carry before `2A9C`. Verify the predicted field changes and admission decisions against those traces; then test R2–R19 boundary cases. Keep program packing and SOLVE/INTEGRATE as separate, independently validated studies.
+**Highest priority:** independently reproduce `DIM D` with the previously used Nonpareil harness, then replay real `DIM E` and program-memory changes, recording RAM `015`, RAM `016`, M[0], B.x, selected RAM page, arithmetic mode and carry before `2A9C`. Verify the predicted field changes and admission decisions against those traces; then test R2–R19 boundary cases. Keep program packing and SOLVE/INTEGRATE as separate, independently validated studies.
 
 **Reproduction and licensing note:** the original 19-scenario Work archive includes adapted Nonpareil instruction code, tests and compressed traces, but is **not checked into this GitHub repository**. Its source files carry a mixture of GPL-2.0-only and GPL-3.0-only notices which require redistribution review. This page presents limited observations and independently checked ROM-address references, not a new combined license for that research harness.
 
