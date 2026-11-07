@@ -6,7 +6,7 @@ title: HP-15C RAM 015 — Dynamic Allocation Research
 
 [Home]({{ '/index.html' | relative_url }}) · [RAM register map]({{ '/hp15c/ram-register-map.html' | relative_url }}) · [ROM map]({{ '/hp15c/rom-map.html' | relative_url }}) · [NUT status bits]({{ '/hp15c/nut-status-bits.html' | relative_url }})
 
-**Status: partial, experimentally reproduced, 28 October 2026.** This page records what can be demonstrated about physical RAM register `015` from the **original** HP-15C microcode and a locally rerun, instrumented Nonpareil V1 research harness. It is **not** a complete allocation specification and does not describe expanded-memory, LE, or CE ROM variants.
+**Status: partial; 19-scenario rerun on 28 October 2026, static allocator review on 7 November 2026.** This page records what can be demonstrated about physical RAM register `015` from the **original** HP-15C microcode and a locally rerun, instrumented Nonpareil V1 research harness. It is **not** a complete allocation specification and does not describe expanded-memory, LE, or CE ROM variants.
 
 ## Source identity, methodology and evidence
 
@@ -59,9 +59,58 @@ The experimental inputs `g SF 8` and `g CF 8` are **HP-15C user-flag operations*
 
 The initialization routine establishes `015` at `0365`. The **writer at `2ABE`** applies a computed allocation adjustment. The observed writer set also includes `2AF1` as part of the zeroing sweep; these are **workload-observed writer sites**, **not proof of an exhaustive set** for all possible ROM paths.
 
-At **`2AA8` and `2AB9`**, the trace shows descriptor reads with RAM page `010` selected. The intervening **`2AB0–2AB7`** logic exchanges CPU registers, uses field-width additions, performs a 12-digit rotation and advances the digit pointer to propagate a change through part of the descriptor. The exact universal rule for selecting which bytes are updated remains **inferred**, pending a complete instruction-by-instruction proof.
+At **`2AA8` and `2AB9`**, the reported trace shows descriptor reads with RAM page `010` selected. Static decoding now establishes a two-nibble-at-a-time update loop; the caller-supplied state and functional interpretation of all boundaries remain conditional as detailed below.
 
 Shared accesses to `015` also occur through generic address selection (`2958`) and at `2FCC`. A literal opcode search for `c=reg 5` alone misses indirect reads when `C=DATA` accesses the previously selected address.
+
+### Admission check: `2A9C–2AA7` and physical RAM `016`
+
+**Verified (ROM and pinned NUT instruction semantics), conditional on the selected RAM page being `010`:** `2A9C` (`c=reg 5`) reads `015`, `2A9F` copies it into A, and `2AA0` (`c=reg 6`) reads `016`. After the second read, `2AA3` adds B.x to A.x, `2AA4` exchanges A.x and C.x, and `2AA5–2AA6` conditionally branches to `2A79` if A.x is less than C.x. These operations provide an admission test **before** the `015` write at `2ABE`.
+
+The conditional helper [`0BF2–0BF6`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom#L3067-L3071) executes `c=0 xs`, `? c#0 x`, `?c rtn`, `c=c+1 x`, `rtn`. It clears C[2], and **normalizes a zero low byte `00` to `001`**, not `100`. The helper is called after both the `015` and `016` reads. A previous informal inference that a zero `016` implied an `0x100` limit was therefore wrong.
+
+For the investigated hex-mode path, define `normalize(v) = ((v & 0x0FF) == 0 ? 0x001 : (v & 0x0FF))`. With B.x as a three-nibble signed/modular correction, the admission comparison is:
+
+```text
+candidate = (normalize(B6) + B.x) mod 0x1000
+limit = normalize(RAM[016])
+if limit < candidate: branch to 2A79
+otherwise: continue toward descriptor update
+```
+
+The low-byte normalization is exact for this helper; the expression assumes the selected RAM page is `010`, B6 is the low byte of the descriptor, the checked operands have the stated provenance, and arithmetic is hexadecimal. The alternate branch's full user-interface meaning is not yet known. **This is not a universal 8-bit capacity rule.**
+
+**Synthetic boundary illustration (not a measured HP-15C default):** with B6=`D2`, RAM `016` low byte=`FF`, and B.x=`02D`, the candidate is `0FF` and the comparison permits the update. For B.x=`02E`, the candidate is `100` and it branches to `2A79`. If RAM `016` instead contains zero, normalization yields `001`, not `100`, and either positive request branches away. The real RAM `016` values, program-memory effects, and the meaning of all its other fields are still unknown.
+
+### The two-nibble cumulative update loop: `2AA8–2ABE`
+
+**Verified (ROM and pinned NUT semantics) for the described entry states:**
+
+| ROM location | Decoded operation | Effect |
+|---|---|---|
+| `2AA8–2AAD` | `c=reg 5`; full and partial exchanges; clear C and C[2] | Preserve the descriptor and prepare a two-nibble correction |
+| `2AAE–2AAF` | `pt=1`; conditional skip to `2AB6` | Set P=1; skip the first addition to initialize the counter |
+| `2AB0–2AB1` | `ab ex w`; `a=a+c wp` | Add the correction through the active pointer |
+| `2AB2–2AB4` | `rcr 12`; `inc pt` twice | Rotate the correction by two nibbles and advance P by two |
+| `2AB5–2AB7` | `ab ex w`; `a=a+1 s`; conditional branch to `2AB0` | Increment the high-nibble loop counter; exit on overflow |
+| `2AB8–2ABE` | Exchanges, `c=reg 5`, conditional `gosub 0BF2`, `reg=c 5` | Finalize and write the descriptor |
+
+The branch at `2AAF` targets **`2AB6`**; the branch at `2AB7` targets **`2AB0`**. The words `2ABA–2ABB` form a **two-word conditional subroutine call** to `0BF2`, not two independent instructions. Pointer values 1, 3, 5, 7, 9, 11, 13 select successive bytes **B6, B5, B4, B3, B2, B1, B0** in least-significant-first order.
+
+The counter is initialized by an increment at `2AB6` *before* the first field addition. If the high nibble A[13] initially equals `t` in `8` through `E`, hexadecimal carry termination produces **`N = 15 - t`** field updates. The `2A5C–2A5E` entry initializes M[0] to `8`; the other entry at `2A67` stores caller-supplied C in M. On the common exit path, `2A99` (`c=m`), `2A9A` (`rcr 1`), `2A9B` (`bc ex s`), and `2AA7` (`ab ex w`) transfer M[0] into A[13]. This establishes parameter transport, not the semantic meaning of every caller or matrix identifier.
+
+| Synthetic selector `t` | Update count | Bytes affected |
+|---|---:|---|
+| `8` | 7 | B6–B0 (all fields) |
+| `A` | 5 | B6–B2 (candidate for matrix A) |
+| `B` | 4 | B6–B3 (candidate for matrix B) |
+| `C` | 3 | B6–B4 (candidate for matrix C) |
+| `D` | 2 | B6–B5 (prediction for matrix D) |
+| `E` | 1 | B6 (prediction for matrix E) |
+
+An independent arithmetic cross-check using **synthetic** inputs and RAM `016`=`FF` recovers the published matrix A/B/C and complex-mode descriptor transitions. It also predicts `C0D2D2D2D2D3D3` for D 1×1 and `C0D2D2D2D2D2D3` for E 1×1. **This is not an executed `DIM D`/`DIM E` key-sequence trace**; the full Nonpareil research harness and its unpublished archive were not replayed in this follow-up.
+
+These results establish the loop's conditional arithmetic mechanism. They do **not** exhaustively establish every ROM caller, actual RAM `016` values, error handling, the allocator's overall memory capacity, or program-storage behavior.
 
 ### Proven relative address computation: `2FC9–2FDB`
 
@@ -98,19 +147,19 @@ This is a **ROM-derived expression**, but the Work package's independent 22-pred
 
 The report explicitly **does not** establish:
 
-- A complete decoding of each byte, especially B5 and B6.
+- A complete **functional** decoding of each byte, especially B5 and B6; their update positions are better established than the ownership of the corresponding regions.
 - The physical placement of nonzero matrix elements and all matrix metadata.
 - The ordering of complex imaginary X/Y/Z/T/LAST X components.
 - Validated program-byte encoding, program-memory allocation or deletion effects.
 - Reliable SOLVE/INTEGRATE program execution, buffer lifetime and interactions with other allocations.
-- Every possible writer to physical RAM `015`, or a general formal proof of `2AB0–2ABE`.
+- Every possible writer to physical RAM `015`, and entry-state coverage sufficient to prove the allocator update rule for all call paths.
 - Real-chip electrical measurement or complete emulator state fidelity.
 
 The local Work experiments observed descriptor changes during attempted SOLVE/INTEGRATE cases but **did not verify functional mathematical success**. These scenarios must not be used to name descriptor fields definitively.
 
 ## Research next steps
 
-**Highest priority:** derive the complete selector/carry/pointer semantics of **`2AA8–2ABE`** from the raw original microcode; then test matrix D/E and R2–R19 boundary cases. Keep program packing and SOLVE/INTEGRATE as separate, independently validated studies.
+**Highest priority:** replay real `DIM D`, `DIM E`, and program-memory changes in the full instrumented emulator, recording RAM `015`, RAM `016`, M[0], B.x, selected RAM page, arithmetic mode and carry before `2A9C`. Verify the predicted field changes and admission decisions against those traces; then test R2–R19 boundary cases. Keep program packing and SOLVE/INTEGRATE as separate, independently validated studies.
 
 **Reproduction and licensing note:** the original 19-scenario Work archive includes adapted Nonpareil instruction code, tests and compressed traces, but is **not checked into this GitHub repository**. Its source files carry a mixture of GPL-2.0-only and GPL-3.0-only notices which require redistribution review. This page presents limited observations and independently checked ROM-address references, not a new combined license for that research harness.
 
