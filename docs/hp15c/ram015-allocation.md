@@ -67,7 +67,7 @@ Shared accesses to `015` also occur through generic address selection (`2958`) a
 
 **Verified (ROM and pinned NUT instruction semantics), conditional on the selected RAM page being `010`:** `2A9C` (`c=reg 5`) reads `015`, `2A9F` copies it into A, and `2AA0` (`c=reg 6`) reads `016`. After the second read, `2AA3` adds B.x to A.x, `2AA4` exchanges A.x and C.x, and `2AA5–2AA6` conditionally branches to `2A79` if A.x is less than C.x. These operations provide an admission test **before** the `015` write at `2ABE`.
 
-The conditional helper [`0BF2–0BF6`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom#L3067-L3071) executes `c=0 xs`, `? c#0 x`, `?c rtn`, `c=c+1 x`, `rtn`. It clears C[2], and **normalizes a zero low byte `00` to `001`**, not `100`. The helper is called after both the `015` and `016` reads. A previous informal inference that a zero `016` implied an `0x100` limit was therefore wrong.
+The conditional helper [`0BF2–0BF6`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom#L3061-L3065) executes `c=0 xs`, `? c#0 x`, `?c rtn`, `c=c+1 x`, `rtn`. It clears C[2], and **normalizes a zero low byte `00` to `001`**, not `100`. The helper is called after both the `015` and `016` reads. A previous informal inference that a zero `016` implied an `0x100` limit was therefore wrong.
 
 For the investigated hex-mode path, define `normalize(v) = ((v & 0x0FF) == 0 ? 0x001 : (v & 0x0FF))`. With B.x as a three-nibble signed/modular correction, the admission comparison is:
 
