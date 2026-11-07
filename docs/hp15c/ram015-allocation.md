@@ -27,8 +27,8 @@ RAM `015` holds **14 hexadecimal nibbles (56 bits)**. In textual dumps, nibble 1
 | **B2** | 9:8 | `D2` | **Inferred:** cumulative boundary affected by matrix A |
 | **B3** | 7:6 | `D2` | **Inferred:** downstream boundary affected by matrices A and B |
 | **B4** | 5:4 | `D2` | **Inferred:** downstream boundary affected by A, B and C |
-| **B5** | 3:2 | `D2` | **Inferred:** further downstream boundary; D-specific behavior untested |
-| **B6** | 1:0 | `D2` | **Inferred:** final observed boundary; exact relationship to E/program memory unproved |
+| **B5** | 3:2 | `D2` | **Observed (independent ROM execution, 7 Nov 2026):** D 1×1 changes B5–B6; the exact physical ownership of this region remains inferred |
+| **B6** | 1:0 | `D2` | **Observed (independent ROM execution, 7 Nov 2026):** E 1×1 changes B6; physical relationship to program memory remains unresolved |
 
 The initialized value `C0D2D2D2D2D2D2` is written at ROM **`0365`**, after construction at [`035C–0365`](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.rom#L863-L872). **Do not infer that B1–B6 are identically functioning fields merely because they all initially contain `D2`.**
 
@@ -105,12 +105,37 @@ The counter is initialized by an increment at `2AB6` *before* the first field ad
 | `A` | 5 | B6–B2 (candidate for matrix A) |
 | `B` | 4 | B6–B3 (candidate for matrix B) |
 | `C` | 3 | B6–B4 (candidate for matrix C) |
-| `D` | 2 | B6–B5 (prediction for matrix D) |
-| `E` | 1 | B6 (prediction for matrix E) |
+| `D` | 2 | B6–B5 (confirmed in independent ROM execution for D 1×1 and 2×2) |
+| `E` | 1 | B6 (confirmed in independent ROM execution for E 1×1 and 2×2) |
 
-An independent arithmetic cross-check using **synthetic** inputs recovers the published matrix A/B/C and complex-mode descriptor transitions. A separate, newly built NUT interpreter has now executed the **actual `1 ENTER 1 f DIM D` key sequence** against the original ROM: at `2A9C`, RAM `015`=`C0D2D2D2D2D2D2`, RAM `016`=`00000000000000`, M[0]=`D`, B.x=`001`, RAM selector=`015`, arithmetic mode=hexadecimal, and previous carry=0. The sequence wrote `C0D2D2D2D2D3D3` at `2ABE`. This is independent ROM-level execution **but not** a replay with the full Nonpareil research harness or physical hardware. The equivalent end-to-end `DIM E` and program-memory tests remain to be run.
+An independent arithmetic cross-check using **synthetic** inputs recovers the published matrix A/B/C and complex-mode descriptor transitions. A separate, newly built NUT interpreter has now executed real HP-15C keyboard sequences against the pinned original ROM; see the instrumented results below. These are **independent ROM-level executions**, not a replay of the full Nonpareil research harness, a native Nonpareil application session or a physical-hardware test.
 
 These results establish the loop's conditional arithmetic mechanism. They do **not** exhaustively establish every ROM caller, actual RAM `016` values, error handling, the allocator's overall memory capacity, or program-storage behavior.
+
+### Independent real-key executions: matrices D/E and program editing (7 November 2026)
+
+**Observed (independent ROM interpretation).** A newly constructed CPU/keyboard/RAM interpreter ran the pinned unmodified original ROM from zero storage and CPU reset, pressed ON and backspace, then sent the actual HP-15C keyboard codes for the selected user operations. Each key was held for at most 2,000 CPU cycles and then released; the emulator ran to sleep after release. Every reported key path reached sleep without an unhandled opcode in the independent interpreter. The key layout was taken from [the pinned 15C model](https://github.com/brouhaha/nonpareil/blob/c347bc1ab20170c253512042f7aac0d952f304ea/ncd/15c/15c.ncd.tmpl); its NUT behavior was derived from the pinned processor source. This was **not** the previously built, locally rerun Nonpareil V1 harness; the independent interpreter and raw traces are not distributed with this documentation.
+
+Matrix commands were entered as dimension, ENTER, dimension, `f DIM`, and the matrix selector. Initial RAM `015` was `C0D2D2D2D2D2D2` and RAM `016` was `00000000000000` before each scenario.
+
+| Real key sequence | M[0] on `2A9C` entry | B.x on entry | RAM selector | RAM `015` after command | RAM `016` after |
+|---|---|---|---|---|---|
+| `1 ENTER 1 f DIM D` | `D` | `001` | `015` | `C0D2D2D2D2D3D3` | `00000000000000` |
+| `1 ENTER 1 f DIM E` | `E` | `001` | `015` | `C0D2D2D2D2D2D3` | `00000000000000` |
+| `2 ENTER 2 f DIM D` | `D` | `004` | `015` | `C0D2D2D2D2D6D6` | `00000000000000` |
+| `2 ENTER 2 f DIM E` | `E` | `004` | `015` | `C0D2D2D2D2D2D6` | `00000000000000` |
+
+On all four entry snapshots, the NUT arithmetic mode was **hexadecimal** and previous carry was **clear**. For D 1×1, the instrumentation recorded a write of the new descriptor at ROM `2ABE` after entering `2A9C` with the expected state; the other matrix final values were read at the sleep checkpoint. These experiments independently confirm the previously predicted D/E field-update pattern **for the stated dimension inputs**.
+
+The same interpreter entered program mode via `g P/R`, entered one or two numeric key instructions, and left program mode via `g P/R`. RAM `015` stayed at its initial value throughout these cases:
+
+| Program entry | RAM `016` after entry | ROM writer sites recorded |
+|---|---|---|
+| No user program instructions | `00000000000000` | Initialization sweep at `2AF1` |
+| Enter key `1` in program mode | `000000000001FF` | `27B5`, `336B` |
+| Enter keys `1`, then `2` in program mode | `000000000002FF` | `27B5`, `336B` |
+
+**Interpretation and limits:** this is direct evidence that physical RAM `016` is updated by program editing, and that the entry-state value read by the allocator is not a fixed constant. The low-byte `FF` in the two program-entry cases is *consistent with* a changed allocation limit, and the preceding nibble changes with the number of entered instructions. **Neither a universal limit formula nor the encoding of program steps can be concluded from just two examples.** Full-program insertion/deletion, packing into 56-bit words, interaction with matrix allocation, memory-full behavior, and comparison with the original Nonpareil harness remain open.
 
 ### Proven relative address computation: `2FC9–2FDB`
 
@@ -159,7 +184,7 @@ The local Work experiments observed descriptor changes during attempted SOLVE/IN
 
 ## Research next steps
 
-**Highest priority:** independently reproduce `DIM D` with the previously used Nonpareil harness, then replay real `DIM E` and program-memory changes, recording RAM `015`, RAM `016`, M[0], B.x, selected RAM page, arithmetic mode and carry before `2A9C`. Verify the predicted field changes and admission decisions against those traces; then test R2–R19 boundary cases. Keep program packing and SOLVE/INTEGRATE as separate, independently validated studies.
+**Highest priority:** independently reproduce these D/E and program-editing observations using the earlier, separately delivered Nonpareil V1 harness, then extend the matrix/program experiments to mixed allocations, program step insertion/deletion and boundary conditions. Record RAM `015`, RAM `016`, M[0], B.x, selected RAM page, arithmetic mode and carry before `2A9C`; check descriptor writes and memory-full branches. The current independent NUT interpreter is a second implementation but has not been audited for full Nonpareil/physical-chip fidelity. Keep program packing and SOLVE/INTEGRATE as separate, independently validated studies.
 
 **Reproduction and licensing note:** the original 19-scenario Work archive includes adapted Nonpareil instruction code, tests and compressed traces, but is **not checked into this GitHub repository**. Its source files carry a mixture of GPL-2.0-only and GPL-3.0-only notices which require redistribution review. This page presents limited observations and independently checked ROM-address references, not a new combined license for that research harness.
 
